@@ -62,10 +62,10 @@
 </h2>
 <p>See ggplot section in the tidyverse section previously to learn how to generate a plot. Once we have generated a plot we like, let’s save it.</p>
 <p>To do this we will use the ggsave command.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span>file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">folder_figures</span>, <span class="st">"/indiana_unemp.png"</span><span class="op">)</span><span class="op">)</span>      <span class="co"># 1  # 1  # 1</span></code></pre></div>
 <p>This will take the last graphic in memory and save it in the location we specify. We can also tell ggplot to make the plot specific dimensions which I highly recommend doing. If you do not specify dimensions, they can be dependent on the size of your viewer in RStudio.</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span>file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">folder_figures</span>, <span class="st">"/indiana_unemp.png"</span><span class="op">)</span>,   <span class="co"># 1  # 1  # 1</span>
   height <span class="op">=</span> <span class="fl">5</span>, width <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>                                    <span class="co"># 2  # 2  # 2</span></code></pre></div>
 </div>
@@ -74,7 +74,7 @@
 <span class="header-section-number">4.2</span> Tables to LaTex<a class="anchor" aria-label="anchor" href="#tables-to-latex"><i class="fas fa-link"></i></a>
 </h2>
 <p>Let’s learn how to export our summary table we created in the dplyr section. Just as a review here is how we created it.</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">indiana_laborforce</span><span class="op">&lt;-</span>                       <span class="co"># 1   # 1   # 1   # 1</span>
   <span class="va">unemp_data</span> <span class="op">%&gt;%</span>                           <span class="co"># 2   # 2   # 2   # 2</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">State_fips</span><span class="op">==</span><span class="st">"18"</span><span class="op">)</span> <span class="op">%&gt;%</span>             <span class="co"># 3   # 3   # 3   # 3</span>
@@ -89,10 +89,10 @@
     Average<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span>,            <span class="co"># 12  # 12  # 12  # 12</span>
     StDev<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span><span class="op">)</span>                <span class="co"># 13  # 13  # 13  # 13</span></code></pre></div>
 <p>Now let’s load in the package xtable. This package allows us to print data.frames into a tex table environment. Let’s first inspect the output for just running the base function with minimal options.</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu">xtable</span><span class="op">(</span><span class="va">indiana_laborforce</span><span class="op">)</span>  <span class="co"># 1  # 1  # 1  # 1</span></code></pre></div>
 <pre><code>## % latex table generated in R 4.1.0 by xtable 1.8-4 package
-## % Wed Jul 14 20:41:31 2021
+## % Thu Jul 15 11:34:45 2021
 ## \begin{table}[ht]
 ## \centering
 ## \begin{tabular}{rlrrrrrrrrr}
@@ -133,7 +133,7 @@
 ## \end{tabular}
 ## \end{table}</code></pre>
 <p>We could then copy and paste this output into latex. However, we can tell xtable and R to save a tex file with this in it. Notice the pathing used. This is a latex table so we are keeping ourselves organized by 1) giving the tex file a useful name and 2) saving it within our tables folder. This may seem extra tedious now but come generating hundreds of plots and tables, organazation can be key to keeping everything straight.</p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu">print.xtable</span><span class="op">(</span>                                                <span class="co"># 1  # 1  # 1  # 1</span>
     <span class="fu">xtable</span><span class="op">(</span><span class="va">indiana_laborforce</span><span class="op">)</span>,                                <span class="co"># 2  # 2  # 2  # 2</span>
     file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">workingdir</span>, <span class="st">"tables/indiana_laborforce.tex"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 3  # 3  # 3  # 3</span></code></pre></div>
@@ -141,7 +141,7 @@
 Try building this table in a pdf through LaTex
 {{% /callout %}}</p>
 <p>Let’s now customize this table more. First, let’s get rid of row names as they are not meaningful for us here. Also, if we want to later fix this table in a certain place in a tex document we want a table placement H.</p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">print.xtable</span><span class="op">(</span>                                                 <span class="co"># 1  # 1  # 1  # 1</span>
   <span class="fu">xtable</span><span class="op">(</span><span class="va">indiana_laborforce</span><span class="op">)</span>,                                 <span class="co"># 2  # 2  # 2  # 2</span>
   table.placement<span class="op">=</span><span class="st">"H"</span>,                                        <span class="co"># 3  # 3  # 3  # 3</span>
@@ -149,7 +149,7 @@ Try building this table in a pdf through LaTex
   file<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">workingdir</span>, <span class="st">"tables/indiana_laborforce.tex"</span><span class="op">)</span>,   <span class="co"># 5  # 5  # 5  # 5</span>
   <span class="op">)</span>                                                           <span class="co"># 6  # 6  # 6  # 6</span></code></pre></div>
 <p>Let’s add a bit more customization to this table.</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">print.xtable</span><span class="op">(</span>                                                     <span class="co"># 1  # 1  # 1  # 1</span>
   <span class="fu">xtable</span><span class="op">(</span>                                                         <span class="co"># 2  # 2  # 2  # 2</span>
   <span class="va">indiana_laborforce</span>,                                             <span class="co"># 3  # 3  # 3  # 3</span>
@@ -193,7 +193,7 @@ Try building this table in a pdf through LaTex
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Data Science in R</strong>" was written by Joseph M. Westenberg. It was last built on 2021-07-14.</p>
+    <p>"<strong>Introduction to Data Science in R</strong>" was written by Joseph M. Westenberg. It was last built on 2021-07-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

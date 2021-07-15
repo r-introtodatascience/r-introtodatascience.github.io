@@ -138,7 +138,7 @@
 
 \title{Introduction to Data Science in R}
 \author{Joseph M. Westenberg}
-\date{2021-07-14}
+\date{2021-07-15}
 
 \begin{document}
 \maketitle
@@ -156,7 +156,7 @@ An example of my code for this course is avaialabe on my github repository at \u
 
 The goal of these short courses are to give graduate students a very prelimenary introduction into coding in R. While having an `instructor' teach you these things may be helpful, in my belief, coding, like math, you have to learn by doing. So I highly encourage following these notes, but then play around with the code. Change things and see how it changes the output. I think this is the best way to learn.
 
-Over the next 5 `sessions' we will be looking into county level unemployment data. The goal will be to provide examples and descriptions of the commands and techniques I have discovered to be most useful while working with data. Specifically the goal is by the end of the 3 sessions you will know how to:
+Over the next 5 `sessions' we will be looking into county level unemployment data. The goal will be to provide examples and descriptions of the commands and techniques I have discovered to be most useful while working with data. Specifically the goal is by the end of the sessions it is my hope that you will know how to:
 
 \begin{itemize}
 \tightlist
@@ -530,13 +530,7 @@ You can make more folders if you feel it keeps you organized. The main point I w
 
 My project folder now looks like this:
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"img/folders.PNG"}\NormalTok{)  }\CommentTok{\# 1}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics[width=2.89in]{img/folders}
+\begin{center}\includegraphics[width=0.3\linewidth]{img/folders} \end{center}
 
 \hypertarget{first-r-script}{%
 \subsection{First R script!}\label{first-r-script}}
@@ -590,13 +584,7 @@ We can use R to with a direct link to download. The first argument the download.
 
 Before we read in this data to R, let's see what we are dealing with. Opening up the file in excel we can see there will be issues reading the file in.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"img/data\_head.PNG"}\NormalTok{)  }\CommentTok{\# 1}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics[width=13.61in]{img/data_head}
+\begin{center}\includegraphics[width=0.8\linewidth]{img/data_head} \end{center}
 
 We can notice that the first row has the file title spread across columns A:J. Variable names are spread across anywhere 1-3 rows. And lastly we have an empty column in F. The bright side is if we observe the other year's files, they all have this exact same structure. Hence we will able to use a loop eventually to clean them all instead of one at a time.
 
@@ -604,34 +592,25 @@ The main package we will be using is readxl, which is quite self explanatory. It
 
 Within the ``Environment'' area of R Studio, click Import Dataset, then From Excel\ldots{}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"img/import\_fromexcel.PNG"}\NormalTok{)  }\CommentTok{\# 1}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics[width=6.99in]{img/import_fromexcel}
+\begin{center}\includegraphics[width=0.4\linewidth]{img/import_fromexcel} \end{center}
 
 There is definitely multiple ways to do this, as we can see from the options available. I first deselect ``First Row as Names'' (This option is very nice if your data is already in a precleaned form and your first row simply has your variable names.) I then begin to skip rows, 5 rows of skipping leads to the first row being the first row of data.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"img/import\_fromexceloptions.PNG"}\NormalTok{)  }\CommentTok{\# 1}
-\end{Highlighting}
-\end{Shaded}
+\begin{center}\includegraphics[width=0.7\linewidth]{img/import_fromexceloptions} \end{center}
 
-\includegraphics[width=11.04in]{img/import_fromexceloptions}
 Next we can handle column F that we noticed was blank. This is column 6 and stays consistent across all years (you can check this). Remembering our lessons from the Very Basics section we can subset this dataframe by removing column 6.
 
 Hence we have something that will look like the following for our command for our script.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{require}\NormalTok{(readxl)                                                                                                                                    }\CommentTok{\# 1}
-\NormalTok{workingdir}\OtherTok{\textless{}{-}}\StringTok{"C:/Users/weste/Documents/GitHub/Rcourse"}                                                                                              \CommentTok{\# 2}
-\NormalTok{bls\_unemp\_90 }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(folder\_raw\_data, }\StringTok{"/bls\_unemp\_90.xlsx"}\NormalTok{), }\AttributeTok{col\_names=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{skip=}\DecValTok{5}\NormalTok{)                                                 }\CommentTok{\# 3}
-\NormalTok{bls\_unemp\_90}\OtherTok{\textless{}{-}}\NormalTok{bls\_unemp\_90[,}\SpecialCharTok{{-}}\DecValTok{6}\NormalTok{]                                                                                                                    }\CommentTok{\# 4}
-\FunctionTok{colnames}\NormalTok{(bls\_unemp\_90)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"LAUS\_code"}\NormalTok{, }\StringTok{"State\_fips"}\NormalTok{, }\StringTok{"County\_fips"}\NormalTok{, }\StringTok{"County\_name"}\NormalTok{, }\StringTok{"Year"}\NormalTok{, }\StringTok{"Labor\_force"}\NormalTok{, }\StringTok{"Employed"}\NormalTok{, }\StringTok{"Unemployed"}\NormalTok{, }\StringTok{"Unemp\_rate"}\NormalTok{)  }\CommentTok{\# 5}
+\FunctionTok{require}\NormalTok{(readxl)                                                                           }\CommentTok{\# 1}
+\NormalTok{workingdir}\OtherTok{\textless{}{-}}\StringTok{"C:/Users/weste/Documents/GitHub/r{-}introtodatascience/sample\_repo/"}           \CommentTok{\# 2}
+\NormalTok{bls\_unemp\_90 }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(folder\_raw\_data, }\StringTok{"/bls\_unemp\_90.xlsx"}\NormalTok{),                 }\CommentTok{\# 3}
+                           \AttributeTok{col\_names=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{skip=}\DecValTok{5}\NormalTok{)                                       }\CommentTok{\# 4}
+\NormalTok{bls\_unemp\_90}\OtherTok{\textless{}{-}}\NormalTok{bls\_unemp\_90[,}\SpecialCharTok{{-}}\DecValTok{6}\NormalTok{]                                                           }\CommentTok{\# 5}
+\FunctionTok{colnames}\NormalTok{(bls\_unemp\_90)}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"LAUS\_code"}\NormalTok{, }\StringTok{"State\_fips"}\NormalTok{, }\StringTok{"County\_fips"}\NormalTok{, }\StringTok{"County\_name"}\NormalTok{,        }\CommentTok{\# 6}
+                          \StringTok{"Year"}\NormalTok{, }\StringTok{"Labor\_force"}\NormalTok{, }\StringTok{"Employed"}\NormalTok{, }\StringTok{"Unemployed"}\NormalTok{, }\StringTok{"Unemp\_rate"}\NormalTok{)  }\CommentTok{\# 7}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1565,7 +1544,7 @@ Now let's load in the package xtable. This package allows us to print data.frame
 
 \begin{verbatim}
 ## % latex table generated in R 4.1.0 by xtable 1.8-4 package
-## % Wed Jul 14 20:40:41 2021
+## % Thu Jul 15 11:33:55 2021
 ## \begin{table}[ht]
 ## \centering
 ## \begin{tabular}{rlrrrrrrrrr}

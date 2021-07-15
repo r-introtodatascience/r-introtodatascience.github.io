@@ -63,11 +63,11 @@
 <h2>
 <span class="header-section-number">3.1</span> Filtering with Pipes<a class="anchor" aria-label="anchor" href="#filtering-with-pipes"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">indiana</span><span class="op">&lt;-</span>                                    <span class="co"># 1  # 1</span>
     <span class="va">unemp_data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">State_fips</span><span class="op">==</span><span class="st">"18"</span><span class="op">)</span>  <span class="co"># 2  # 2</span></code></pre></div>
 <p>What is going on in this line of code? Let’s start with the second line. The operator %&gt;% is called a pipe. This comes from a package called magittr which is included within tidyverse. Pipes are very handy for neatly writing longer sequences of code. Here we begin with a pretty simple example. We can think of pipes as saying “then.” That is it takes the argument before it and uses it as input in the following command. Here we are using a filter command, so we are saying take our data.frame county_data, then filter or “give us” the values where State_fips is equal to “18” (this is fips code for Indiana. Go Hoosiers!). So in summary we are just filtering out indiana data and saving it as a new data frame (this is line 1). Note: this operation does NOT impact county_data, the only way we ‘over write’ a data frame is to explicitly tell it to. For example the following WOULD overwrite county_data.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">unemp_data</span><span class="op">&lt;-</span><span class="va">unemp_data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">State_fips</span><span class="op">==</span><span class="st">"18"</span><span class="op">)</span>  <span class="co"># 1  # 1</span></code></pre></div>
 </div>
 <div id="plotting-data" class="section level2" number="3.2">
@@ -76,11 +76,11 @@
 </h2>
 <p>In this lesson we will be plotting the data gathered in previous lessons. ggplot2 is a very popular package for plotting and is now included as part of the tidyverse package. It allows us to make many different kinds of plots and customize them. As it is so popular there are many guides for it. <a href="https://ggplot2.tidyverse.org/">Tidyverse’s website</a> summarizes some very useful resources.</p>
 <p>As ggplot2 has so many options, we will just be barely skimming the surface in this introduction. Let’s start with a minimal command. First let’s load in ggplot2 filter our data down into just Indiana.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>                                    <span class="co"># 1  # 1</span>
                                                     <span class="co"># 2  # 2</span>
 <span class="va">indiana</span> <span class="op">&lt;-</span> <span class="va">unemp_data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">State_fips</span><span class="op">==</span><span class="st">"18"</span><span class="op">)</span>  <span class="co"># 3  # 3</span></code></pre></div>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,   <span class="co"># 1  # 1</span>
     colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>     <span class="co"># 2  # 2</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span>                                    <span class="co"># 3  # 3</span></code></pre></div>
@@ -91,14 +91,14 @@
 <li>Line #3: Tells ggplot to plot the data as lines.</li>
 </ul>
 <p>First thing after this plot, the legend is excessive. Let’s just suppress it for now. To do this we can define the legend.position in theme as none. The theme command allows for a lot of customization with the plot. If you want to see all options <a href="https://ggplot2.tidyverse.org/reference/theme.html">click here.</a> Let’s also change the thickness of the lines, we can do this with the alpha argument.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,   <span class="co"># 1  # 1</span>
     colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>     <span class="co"># 2  # 2</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.3</span><span class="op">)</span><span class="op">+</span>                           <span class="co"># 3  # 3</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>                  <span class="co"># 4  # 4</span></code></pre></div>
 <div class="inline-figure"><img src="bookdown-demo_files/figure-html/unnamed-chunk-38-1.png" width="672"></div>
 <p>This already is looking a lot better. But can we do something about the labels on the x axis, they are overlaying on each other. We could make the text smaller but then it would be difficult to see, so let’s just rotate them. Also let’s make the y-axis name a bit more meaningful.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,   <span class="co"># 1  # 1</span>
     colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>     <span class="co"># 2  # 2</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.3</span><span class="op">)</span><span class="op">+</span>                           <span class="co"># 3  # 3</span>
@@ -107,7 +107,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">'Indiana Unemployment Rate by County'</span><span class="op">)</span>    <span class="co"># 6  # 6</span></code></pre></div>
 <div class="inline-figure"><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672"></div>
 <p>Now we’re getting somewhere! But what if we want to emphasize the county Bloomington is in, Monroe County?</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">monroecty</span><span class="op">&lt;-</span><span class="va">indiana</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">County_fips</span><span class="op">==</span><span class="st">"105"</span><span class="op">)</span>       <span class="co"># 1   # 1</span>
                                                         <span class="co"># 2   # 2</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,          <span class="co"># 3   # 3</span>
@@ -121,7 +121,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">'Indiana Unemployment Rate by County'</span><span class="op">)</span>          <span class="co"># 11  # 11</span></code></pre></div>
 <div class="inline-figure"><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672"></div>
 <p>We can make the black line for Monroe County ‘pop’ a bit more too. Let’s change the opacity of the other counties lines. To do this we can set a value, alpha. This takes values 0 to 1 where smaller values are more transparent.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,          <span class="co"># 1  # 1</span>
     colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>            <span class="co"># 2  # 2</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.3</span>, alpha<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">+</span>                       <span class="co"># 3  # 3</span>
@@ -137,7 +137,7 @@
 <span class="header-section-number">3.2.1</span> Scatter plot (geom_point)<a class="anchor" aria-label="anchor" href="#scatter-plot-geom_point"><i class="fas fa-link"></i></a>
 </h3>
 <p>What if we want points to insteaed of lines for each year?</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,   <span class="co"># 1  # 1</span>
   colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>       <span class="co"># 2  # 2</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span>                                   <span class="co"># 3  # 3</span></code></pre></div>
@@ -149,7 +149,7 @@
 <span class="header-section-number">3.3</span> Manipulating within Groups<a class="anchor" aria-label="anchor" href="#manipulating-within-groups"><i class="fas fa-link"></i></a>
 </h2>
 <p>Our next chunk of code gets a bit more complex, let’s take it peice by peice though.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">indiana</span> <span class="op">%&gt;%</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">%&gt;%</span>          <span class="co"># 1  # 1</span>
     <span class="fu">summarise</span><span class="op">(</span>Average<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 2  # 2</span></code></pre></div>
 <p>Let’s again take it from the end and work our ways backwards through it. The 3rd line above is calculating a new variable within a group that is called ‘Average.’ The group (line 2) that we are calculating within is each Year for our Indiana data.frame. That is this snippet of code will give us one value back for each year, the average Labor Force level across Indiana’s counties.</p>
@@ -408,7 +408,7 @@ Average
 </table></div>
 </div>
 <p>This group_by command paired with summarise is quite useful. For example going back to our original data.frame, county_data. Suppose we wanted to do what we just did but for all states. That is calculate within each state and year combination. With the group_by command this is quite simple! (I print the first 100 lines of output below)</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">unemp_data</span> <span class="op">%&gt;%</span>                          <span class="co"># 1  # 1</span>
   <span class="fu">group_by</span><span class="op">(</span><span class="va">Year</span>, <span class="va">State_fips</span><span class="op">)</span> <span class="op">%&gt;%</span>        <span class="co"># 2  # 2</span>
   <span class="fu">summarise</span><span class="op">(</span>Average<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 3  # 3</span></code></pre></div>
@@ -1531,7 +1531,7 @@ Average
 </table></div>
 </div>
 <p>Average is just one statistic we may want to calculate, how about percentiles, minimum, maximum, standard deviation. our summarise command will accept more than one argument, we just have to separate by a comma. Let’s also save this as a new data.frame for use in future lessons.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">indiana_laborforce</span><span class="op">&lt;-</span>                       <span class="co"># 1   # 1</span>
   <span class="va">indiana</span> <span class="op">%&gt;%</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">%&gt;%</span>           <span class="co"># 2   # 2</span>
   <span class="fu">summarise</span><span class="op">(</span>Min<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span>,          <span class="co"># 3   # 3</span>
@@ -2547,7 +2547,7 @@ StDev
 <span class="header-section-number">3.4</span> Defining New Variables<a class="anchor" aria-label="anchor" href="#defining-new-variables"><i class="fas fa-link"></i></a>
 </h2>
 <p>How about if we don’t want to calculate summary statistics within a group, but just want to calculate a new variable from each observation? Consider if we had unemployed and labor force levels but did not have unemployment rate, how could we go about calculating it with mutate?</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">indiana</span><span class="op">&lt;-</span>                                                                <span class="co"># 1  # 1</span>
   <span class="va">indiana</span> <span class="op">%&gt;%</span>                                                            <span class="co"># 2  # 2</span>
   <span class="fu">mutate</span><span class="op">(</span>unemp_rate_calc<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">(</span><span class="va">Unemployed</span><span class="op">/</span><span class="va">Labor_force</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span>, digits<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 3  # 3</span></code></pre></div>
@@ -2569,7 +2569,7 @@ StDev
 </h2>
 <p>How can we go about dropping or keeping certain variables?</p>
 <p>Say we wanted to drop the unemp_rate_calc, Labor_force, and Employed?</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">temp</span><span class="op">&lt;-</span>                                                 <span class="co"># 1  # 1</span>
   <span class="va">indiana</span> <span class="op">%&gt;%</span>                                          <span class="co"># 2  # 2</span>
   <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">unemp_rate_calc</span>, <span class="va">Labor_force</span>,  <span class="va">Employed</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 3  # 3</span>
@@ -2584,7 +2584,7 @@ StDev
 ## 5 CN180090000~ 18         009         Blackford Cou~ 1990         643        9.2
 ## 6 CN180110000~ 18         011         Boone County,~ 1990         483        2.4</code></pre>
 <p>Now what if we wanted to keep just State_fips, County_fips, Year, and Unemp_rate?</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">temp</span><span class="op">&lt;-</span>                                                  <span class="co"># 1  # 1</span>
   <span class="va">indiana</span> <span class="op">%&gt;%</span>                                           <span class="co"># 2  # 2</span>
   <span class="fu">select</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">State_fips</span>, <span class="va">County_fips</span>, <span class="va">Year</span>, <span class="va">Unemp_rate</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 3  # 3</span>
@@ -2612,7 +2612,7 @@ StDev
 <p>We will be merging poverty estimates for the US counties in 2019. A table prepared by the USDA can be found on <a href="https://www.ers.usda.gov/data-products/county-level-data-sets/download-data/">their website here.</a> Let’s download this and put it into our original_data folder. Now let’s open it and see what the data looks like. One of the first things we can notice is the first 2 lines, United States and Alabama. That is there is county and state level observations in addition to the county level ones. We need to keep this in mind before we merge with our unemployment data.</p>
 <p>Try to figure out how to read this data into R by yourself. If you need to review, go back to <a href="https://jmwestenberg.github.io/courses/rcourse/lesson1/lesson1_04/">Downloading/Reading Data</a>. Remember using R Studio to assist with this is probably the simplest way until we get very comfortable with the commands.</p>
 <p>Here is the command I use for it:</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PovertyEstimates</span> <span class="op">&lt;-</span>                                             <span class="co"># 1  # 1</span>
   <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">folder_raw_data</span>, <span class="st">"/PovertyEstimates.xls"</span><span class="op">)</span>,  <span class="co"># 2  # 2</span>
   skip <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>                                                     <span class="co"># 3  # 3</span></code></pre></div>
@@ -2633,7 +2633,7 @@ StDev
 </li>
 </ul>
 <p>Here is the code I use for this:</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">unem_2019</span><span class="op">&lt;-</span><span class="va">county_data</span> <span class="op">%&gt;%</span>                                                            <span class="co"># 1  # 1</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Year</span><span class="op">==</span><span class="fl">2019</span>, <span class="va">State_fips</span><span class="op">!=</span><span class="fl">72</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co">#restrict sample to only year 2019, drop PR  # 2  # 2</span>
   <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">Year</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co">#drop the variable Year                                           # 3  # 3</span>
@@ -2643,7 +2643,7 @@ StDev
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span><span class="op">(</span><span class="va">FIPStxt</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">FIPStxt</span><span class="op">)</span><span class="op">-</span><span class="fl">2</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">FIPStxt</span><span class="op">)</span><span class="op">)</span><span class="op">!=</span><span class="st">"000"</span><span class="op">)</span>          <span class="co"># 7  # 7</span></code></pre></div>
 <p>Now if we observe both data frames we are left with what we want to merge. We have defined a variable FIPStxt which we would like to join observations on. That is for a given FIPStxt ID in our unemployment data, we would like to find the row with that FIPStxt ID in our poverty data, then add the variables in the poverty data to our unemployment data. Then do this for all iterations of our FIPStxt ID.</p>
 <p>There are join commands for this in the dplyr package. The clearest join command is full_join. This matches data frames based on common variable names (or defined variable names to match on.) I print the first 3 rows below.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">clean_full</span><span class="op">&lt;-</span>                         <span class="co"># 1  # 1</span>
   <span class="va">unem_2019</span> <span class="op">%&gt;%</span> <span class="fu">full_join</span><span class="op">(</span><span class="va">pov_2019</span><span class="op">)</span>  <span class="co"># 2  # 2</span></code></pre></div>
 <pre><code>## Joining, by = "FIPStxt"</code></pre>
@@ -3172,7 +3172,7 @@ NA
 </h3>
 <p>While the above full_join command is probably the ‘safest’ route since it prints all of the variables and rows of both data frames, knowing more about other joins can save us some time.</p>
 <p>For example, consider above when we first loaded in our poverty data. It had observations at state and country wide levels in addition to the county level data we wanted. We would ideally want a command that took in the county unemployment data, matched the poverty data based on FIPStxt, and then just exclude any extras from the poverty data. We can do this with left (or right) join.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">unclean_left</span><span class="op">&lt;-</span>                               <span class="co"># 1  # 1</span>
   <span class="va">unem_2019</span> <span class="op">%&gt;%</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">PovertyEstimates</span><span class="op">)</span>  <span class="co"># 2  # 2</span></code></pre></div>
 <pre><code>## Joining, by = "FIPStxt"</code></pre>
@@ -3695,7 +3695,7 @@ NA
 </table></div>
 </div>
 <p>In this case we are starting with our unemployment data, and then telling R to match all possible values by our common variable (FIPStxt here), then we don’t care about any poverty estimate observations that can’t be matched. However what about unemployment observations that can’t be? We simply fill these values with NA’s. For example, if we DON’T exclude Puerto Rico, it would be in our unemployment data, but not in our poverty data. Let’s see what happens:</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">unem_2019_pr</span><span class="op">&lt;-</span><span class="va">county_data</span> <span class="op">%&gt;%</span>                      <span class="co"># 1  # 1</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Year</span><span class="op">==</span><span class="fl">2019</span><span class="op">)</span> <span class="op">%&gt;%</span>                           <span class="co"># 2  # 2</span>
   <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">Year</span><span class="op">)</span> <span class="op">%&gt;%</span>                                <span class="co"># 3  # 3</span>
@@ -4270,7 +4270,7 @@ NA
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Data Science in R</strong>" was written by Joseph M. Westenberg. It was last built on 2021-07-14.</p>
+    <p>"<strong>Introduction to Data Science in R</strong>" was written by Joseph M. Westenberg. It was last built on 2021-07-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
