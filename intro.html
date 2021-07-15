@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Introduction | Introduction to Data Science in R</title>
+<meta name="author" content="Joseph M. Westenberg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="libs/plotly-binding-4.9.4.1/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS -->
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Introduction to Data Science in R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Preface</a></li>
+<li><a class="active" href="intro.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="tidyverse.html"><span class="header-section-number">3</span> Tidyverse</a></li>
+<li><a class="" href="exporting.html"><span class="header-section-number">4</span> Exporting Results</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="intro" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Introduction<a class="anchor" aria-label="anchor" href="#intro"><i class="fas fa-link"></i></a>
+</h1>
+<p>The goal of this section is to provide a very quick introduction or refresher to R. If this is your first time coding, this brief introduction will most likely be quite insufficient. I encourage you to seek other resources to learn the basics before proceeding.</p>
+<p>In particular we will cover:</p>
+<ul>
+<li>Writing Loops</li>
+<li>String Manipulation</li>
+<li>Project Organization</li>
+<li>Downloading/Reading Data</li>
+<li>Downloading Loop</li>
+</ul>
+<p>In this lesson we will be downloading and cleaning data from the BLS on county level employment statistics from 1990-2019.</p>
+<div id="very-basics" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Very Basics<a class="anchor" aria-label="anchor" href="#very-basics"><i class="fas fa-link"></i></a>
+</h2>
+<p>I assume you have R installed and running. There are plenty of guides online on how to do this.</p>
+<p>Let’s first define some arrays within R.</p>
+<p>These can be numeric based, in this case integer.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1"></a>numvec1<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>)  <span class="co"># 1</span></span>
+<span id="cb1-2"><a href="intro.html#cb1-2"></a>numvec2<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)  <span class="co"># 2</span></span></code></pre></div>
+<p>Let’s dig into what is going on a bit more. We are telling R to define a vector, this is the c( ) part, with elements 1,2,3 and give that vector a name A. The backwards arrow tells R what is the name and what is the element we are defining.</p>
+<p>We can make character based vectors as well.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1"></a>charvec1<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>)  <span class="co"># 1</span></span>
+<span id="cb2-2"><a href="intro.html#cb2-2"></a>charvec2<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"d"</span>, <span class="st">"e"</span>, <span class="st">"f"</span>)  <span class="co"># 2</span></span></code></pre></div>
+<p>We can then combine these vectors into a dataframe (this is relevant for when we start thinking about reading in/manipulating actual data). Since all of our vectors are length three, we can easily create a dataframe (think a matrix) where our column names will be the name of the vectors, and the rows will be the elements of the vectors.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1"></a>first_dataframe<span class="ot">&lt;-</span><span class="fu">data.frame</span>(numvec1,numvec2,charvec1,charvec2)  <span class="co"># 1</span></span>
+<span id="cb3-2"><a href="intro.html#cb3-2"></a><span class="fu">print</span>(first_dataframe)                                          <span class="co"># 2</span></span></code></pre></div>
+<pre><code>##   numvec1 numvec2 charvec1 charvec2
+## 1       5       7        a        d
+## 2       6       8        b        e
+## 3       7       9        c        f</code></pre>
+<p>Now first_dataframe is going to be of similar format as we will typically have when we read in data from excel files into R. We can access certain rows and columns within the dataframe by putting square brackets after the name of the dataframe. For example if we wanted to print the element in the first row and first column, we could define the variable x as this and then print x. (Keep in mind the ordering is rows, columns)</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1"></a>x<span class="ot">&lt;-</span>first_dataframe[<span class="dv">1</span>,<span class="dv">1</span>]  <span class="co"># 1</span></span>
+<span id="cb5-2"><a href="intro.html#cb5-2"></a><span class="fu">print</span>(x)                 <span class="co"># 2</span></span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>What if we wanted to print <strong>all</strong> elements in the first row, we just leave the column (after the comma) blank:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb7-1"><a href="intro.html#cb7-1"></a>x<span class="ot">&lt;-</span>first_dataframe[<span class="dv">1</span>,]  <span class="co"># 1</span></span>
+<span id="cb7-2"><a href="intro.html#cb7-2"></a><span class="fu">print</span>(x)                <span class="co"># 2</span></span></code></pre></div>
+<pre><code>##   numvec1 numvec2 charvec1 charvec2
+## 1       5       7        a        d</code></pre>
+<p>How about 1st &amp; 3rd row?</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb9-1"><a href="intro.html#cb9-1"></a>x<span class="ot">&lt;-</span>first_dataframe[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),]  <span class="co"># 1</span></span>
+<span id="cb9-2"><a href="intro.html#cb9-2"></a><span class="fu">print</span>(x)                     <span class="co"># 2</span></span></code></pre></div>
+<pre><code>##   numvec1 numvec2 charvec1 charvec2
+## 1       5       7        a        d
+## 3       7       9        c        f</code></pre>
+<p>Another way to do this is to define another variable, say y as a vector with elements 1 and 3. Notice how the below output is the same as the above.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1"></a>y<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)               <span class="co"># 1</span></span>
+<span id="cb11-2"><a href="intro.html#cb11-2"></a>x<span class="ot">&lt;-</span>first_dataframe[y,]  <span class="co"># 2</span></span>
+<span id="cb11-3"><a href="intro.html#cb11-3"></a><span class="fu">print</span>(x)                <span class="co"># 3</span></span></code></pre></div>
+<pre><code>##   numvec1 numvec2 charvec1 charvec2
+## 1       5       7        a        d
+## 3       7       9        c        f</code></pre>
+<p>We can do the same thing for the columns (we need to remember the order for the square brackets are rows, columns). Note: if we put a negative sign in front of these commands in the brackets, instead “keeping” certain rows or columns, it means remove! That is if in the below command we have -3, it would be saying REMOVE column 3!</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb13-1"><a href="intro.html#cb13-1"></a>x<span class="ot">&lt;-</span>first_dataframe[,<span class="dv">3</span>]   <span class="co"># 1</span></span>
+<span id="cb13-2"><a href="intro.html#cb13-2"></a>y<span class="ot">&lt;-</span>first_dataframe[,<span class="sc">-</span><span class="dv">3</span>]  <span class="co"># 2</span></span>
+<span id="cb13-3"><a href="intro.html#cb13-3"></a><span class="fu">print</span>(x)                 <span class="co"># 3</span></span></code></pre></div>
+<pre><code>## [1] "a" "b" "c"</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb15-1"><a href="intro.html#cb15-1"></a><span class="fu">print</span>(y)  <span class="co"># 1</span></span></code></pre></div>
+<pre><code>##   numvec1 numvec2 charvec2
+## 1       5       7        d
+## 2       6       8        e
+## 3       7       9        f</code></pre>
+<p>Our third column is named C, we can also pull this column by referencing it’s name after a dollar sign, such as:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb17-1"><a href="intro.html#cb17-1"></a>x<span class="ot">&lt;-</span>first_dataframe<span class="sc">$</span>charvec1  <span class="co"># 1</span></span>
+<span id="cb17-2"><a href="intro.html#cb17-2"></a><span class="fu">print</span>(x)                     <span class="co"># 2</span></span></code></pre></div>
+<pre><code>## [1] "a" "b" "c"</code></pre>
+<p>This may not sound useful now, but think if we have many columns of variables, say wage, hoursworked, fulltime, and hundreds of more. We don’t want to have to find what column number hoursworked is, we can just reference this column name.</p>
+<div id="and-and-or-operators" class="section level4" number="2.1.0.1">
+<h4>
+<span class="header-section-number">2.1.0.1</span> “And” and “Or” Operators<a class="anchor" aria-label="anchor" href="#and-and-or-operators"><i class="fas fa-link"></i></a>
+</h4>
+<p>A couple common operators that we may want to use are “and” and “or” statements. Within R:</p>
+<ul>
+<li>“&amp;” : Our “and” operator</li>
+<li>“|” : Our “or” operator</li>
+</ul>
+<p>For example:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">first_dataframe</span><span class="op">[</span><span class="va">first_dataframe</span><span class="op">$</span><span class="va">numvec1</span><span class="op">&gt;=</span><span class="fl">6</span> <span class="op">&amp;</span> <span class="va">first_dataframe</span><span class="op">$</span><span class="va">numvec2</span><span class="op">&lt;</span><span class="fl">9</span>,<span class="op">]</span>  <span class="co"># 1</span></code></pre></div>
+<pre><code>##   numvec1 numvec2 charvec1 charvec2
+## 2       6       8        b        e</code></pre>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">first_dataframe</span><span class="op">[</span><span class="va">first_dataframe</span><span class="op">$</span><span class="va">numvec1</span><span class="op">&gt;=</span><span class="fl">6</span> <span class="op">|</span> <span class="va">first_dataframe</span><span class="op">$</span><span class="va">numvec2</span><span class="op">&lt;</span><span class="fl">9</span>,<span class="op">]</span>  <span class="co"># 1</span></code></pre></div>
+<pre><code>##   numvec1 numvec2 charvec1 charvec2
+## 1       5       7        a        d
+## 2       6       8        b        e
+## 3       7       9        c        f</code></pre>
+</div>
+</div>
+<div id="writing-loops" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Writing Loops<a class="anchor" aria-label="anchor" href="#writing-loops"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r numCode R numberLines"><code class="sourceCode r"><span id="cb23-1"><a href="intro.html#cb23-1"></a>letters<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>)  <span class="co"># 1</span></span>
+<span id="cb23-2"><a href="intro.html#cb23-2"></a>letters_l<span class="ot">&lt;-</span><span class="fu">length</span>(letters)           <span class="co"># 2</span></span>
+<span id="cb23-3"><a href="intro.html#cb23-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>letters_l){              <span class="co"># 3</span></span>
+<span id="cb23-4"><a href="intro.html#cb23-4"></a>  <span class="fu">print</span>(letters[i])                  <span class="co"># 4</span></span>
+<span id="cb23-5"><a href="intro.html#cb23-5"></a>}                                    <span class="co"># 5</span></span></code></pre></div>
+<pre><code>## [1] "a"
+## [1] "b"
+## [1] "c"
+## [1] "d"
+## [1] "e"</code></pre>
+<p>Going line by line:</p>
+<ul>
+<li>Line 1: Define a vector of letters.</li>
+<li>Line 2: Report the number of elements in our letter vector and save as letters_l</li>
+<li>Line 3: Defining for loop. Our index will be i, and it will run from 0 to however long letters vector is (try adding some more letters!) Note our for loop action is defined within the curly braces.</li>
+<li>Line 4: For every i defined in Line 3 we want to print the corresponding element in the vector letters.</li>
+</ul>
+<p>Okay, great. How does this help us with reading in the data? We’ll get to that in the next section.</p>
+</div>
+<div id="string-manipulation" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> String Manipulation<a class="anchor" aria-label="anchor" href="#string-manipulation"><i class="fas fa-link"></i></a>
+</h2>
+<div id="string-concatenation" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> String Concatenation<a class="anchor" aria-label="anchor" href="#string-concatenation"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span><span class="op">&lt;-</span><span class="st">"This is a the start"</span>  <span class="co"># 1</span>
+<span class="va">b</span><span class="op">&lt;-</span><span class="st">"of a sentence"</span>        <span class="co"># 2</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span><span class="op">)</span>        <span class="co"># 3</span></code></pre></div>
+<pre><code>## [1] "This is a the startof a sentence"</code></pre>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 1</span></code></pre></div>
+<pre><code>## [1] "This is a the start of a sentence"</code></pre>
+<p>Notice we define a and b as strings. What paste and paste0 do are combine these strings into one string. We can see that paste places a space between the two strings while paste0 does not. paste0 comes in quite handy for working with file pathing as we will see. Yes it’s that easy!</p>
+<p>We will not be using this for this project but it may be useful to know we can concatenate two vectors of strings as well.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"This is a the start"</span>, <span class="st">"Now we have"</span>, <span class="st">"This really is"</span>, <span class="st">"Economics is"</span><span class="op">)</span>  <span class="co"># 1</span>
+<span class="va">b</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"of a sentence."</span>, <span class="st">"another sentence."</span>, <span class="st">"quite handy."</span>, <span class="st">"awesome!"</span><span class="op">)</span>       <span class="co"># 2</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span><span class="op">)</span>                                                             <span class="co"># 3</span></code></pre></div>
+<pre><code>## [1] "This is a the start of a sentence." "Now we have another sentence."     
+## [3] "This really is quite handy."        "Economics is awesome!"</code></pre>
+</div>
+<div id="string-padding" class="section level3" number="2.3.2">
+<h3>
+<span class="header-section-number">2.3.2</span> String Padding<a class="anchor" aria-label="anchor" href="#string-padding"><i class="fas fa-link"></i></a>
+</h3>
+<p>Consider we have a vector of numbers which currently runs 1-19. Now what if we need all the ‘single character’ digits to have a leading zero. That is instead of “1” we need “01.”</p>
+<p>We could use paste0 as above and combine a 0 with our vector.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">numbvec</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span><span class="op">)</span>  <span class="co"># 1</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"0"</span>, <span class="va">numbvec</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 2</span></code></pre></div>
+<pre><code>##  [1] "01"  "02"  "03"  "04"  "05"  "06"  "07"  "08"  "09"  "010" "011" "012"
+## [13] "013" "014" "015" "016" "017" "018" "019"</code></pre>
+<p>But we don’t want a leading 0 in front of the double ‘character’ digits (ie We DON’T want “090”). We could break our vector into single character digits and two character digits, manipulate the single character digits, then combine it back in with the double character digits. But there is an easier way: str_pad !</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="http://stringr.tidyverse.org">stringr</a></span><span class="op">)</span>                           <span class="co"># 1</span>
+<span class="va">numbvec</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span><span class="op">)</span>                <span class="co"># 2</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_pad.html">str_pad</a></span><span class="op">(</span><span class="va">numbvec</span>, <span class="fl">2</span>, <span class="st">"left"</span>, <span class="st">"0"</span><span class="op">)</span>  <span class="op">)</span>  <span class="co"># 3</span></code></pre></div>
+<pre><code>##  [1] "01" "02" "03" "04" "05" "06" "07" "08" "09" "10" "11" "12" "13" "14" "15"
+## [16] "16" "17" "18" "19"</code></pre>
+<p>Now this looks like what we want! But what is str_pad doing? With str_pad we are telling stringr we want all elements of numbvec to be of length 2. So stringr checks to see if the elements are less than 2 characters, if an element is it adds “0”’s to the left side until it reaches length 2. If it is already length 2, it will leave it alone.</p>
+<p>There is many other handy commands to deal with strings in R. These are just a couple of commands we will be using. I will be writing a post with some other handy functions in the coming weeks and will link it here.</p>
+</div>
+</div>
+<div id="project-organization" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Project Organization<a class="anchor" aria-label="anchor" href="#project-organization"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before we get started, let’s set up a folder for our project and create subfolders to keep things organized. For this project I recommend the following subfolders, which are a good minimum for organizing any project:</p>
+<ul>
+<li>raw_data: This is where we will put our `preprocessed’ data we will be getting from MIT Election Lab.</li>
+<li>scripts: Where we will save all of our R-scripts in this folder</li>
+<li>processed_data: If we want to save some intermediate data steps between raw data and our output.</li>
+<li>tables: Any tex tables we generate we will save to this folder</li>
+<li>figures: Any figures we generate we will save to this folder</li>
+<li>tex: Where we can have our paper and/or presentations</li>
+</ul>
+<p>You can make more folders if you feel it keeps you organized. The main point I want to make here is it is well worth your time to think about how you want to organize your project. Oftentimes if we jump right in without a plan, things become a jumbled mess. (If you want to go further with your organization strategies, I recommend looking into waf, specifically check out <a href="https://econ-project-templates.readthedocs.io/en/stable/index.html">Templates for Reproducible Research Projects in Economics</a>.)</p>
+<p>My project folder now looks like this:</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"img/folders.PNG"</span><span class="op">)</span>  <span class="co"># 1</span></code></pre></div>
+<div class="inline-figure"><img src="img/folders.PNG" width="104"></div>
+<div id="first-r-script" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> First R script!<a class="anchor" aria-label="anchor" href="#first-r-script"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now that we have our folders created, let’s now create paths to those folders with R. Let’s start by creating a variable workingdir which we can define as the path to our main folder.</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">workingdir</span><span class="op">&lt;-</span><span class="st">"PATH_TO_YOUR_WORKING_DIR"</span>  <span class="co"># 1</span></code></pre></div>
+<p>Now we are going to create a script, let’s save it as workingdir.R and place it in our main parent folder. We are then going to be using the path we defined above in this script to create paths to our other folders.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">folder_figures</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">workingdir</span>, <span class="st">"figures"</span><span class="op">)</span>                <span class="co"># 1</span>
+<span class="va">folder_processed_data</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">workingdir</span>, <span class="st">"processed_data"</span><span class="op">)</span>  <span class="co"># 2</span>
+<span class="va">folder_raw_data</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">workingdir</span>, <span class="st">"raw_data"</span><span class="op">)</span>              <span class="co"># 3</span>
+<span class="va">folder_scripts</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">workingdir</span>, <span class="st">"scripts"</span><span class="op">)</span>                <span class="co"># 4</span>
+<span class="va">folder_tables</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">workingdir</span>, <span class="st">"tables"</span><span class="op">)</span>                  <span class="co"># 5</span>
+<span class="va">folder_tex</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">workingdir</span>, <span class="st">"tex"</span><span class="op">)</span>                        <span class="co"># 6</span></code></pre></div>
+<p>Now at the top of all other scripts we can have:</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">workingdir</span><span class="op">&lt;-</span><span class="st">"PATH_TO_YOUR_WORKING_DIR"</span>    <span class="co"># 1</span>
+<span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">workingdir</span>, <span class="va">workingdir.r</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 2</span></code></pre></div>
+<p>Now all this says is we have a variable named workingdir that points to our main parent folder. We then have a script in which we define paths to all other folders. With this at the front of all of our scripts, we can easily reference them to create easier pathing for ourselves.</p>
+</div>
+</div>
+<div id="downloading-within-r" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Downloading within R<a class="anchor" aria-label="anchor" href="#downloading-within-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>We can use R to with a direct link to download. The first argument the download.file() command takes that we will use is the url of the xslx document and the second argument is the destination it will be saved. The last argument is basically telling R that the excel docs are not plain text. (Don’t forget to have workingdir defined as we did in <a href="https://jmwestenberg.github.io/courses/rcourse/intro/lesson1_03/">Project Organization</a></p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="st">"https://www.bls.gov/lau/laucnty90.xlsx"</span>,     <span class="co"># 1</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">folder_raw_data</span>, <span class="st">"bls_unemp_90.xlsx"</span><span class="op">)</span>, mode<span class="op">=</span><span class="st">"wb"</span><span class="op">)</span>  <span class="co"># 2</span></code></pre></div>
+</div>
+<div id="reading-in-data" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Reading in Data<a class="anchor" aria-label="anchor" href="#reading-in-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before we read in this data to R, let’s see what we are dealing with. Opening up the file in excel we can see there will be issues reading the file in.</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"img/data_head.PNG"</span><span class="op">)</span>  <span class="co"># 1</span></code></pre></div>
+<div class="inline-figure"><img src="img/data_head.PNG" width="490"></div>
+<p>We can notice that the first row has the file title spread across columns A:J. Variable names are spread across anywhere 1-3 rows. And lastly we have an empty column in F. The bright side is if we observe the other year’s files, they all have this exact same structure. Hence we will able to use a loop eventually to clean them all instead of one at a time.</p>
+<p>The main package we will be using is readxl, which is quite self explanatory. It is a package meant to help to read in excel docs. Let’s try to open the file for 1990 we downloaded in R. We can do this through R Studio’s functionality.</p>
+<p>Within the “Environment” area of R Studio, click Import Dataset, then From Excel…</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"img/import_fromexcel.PNG"</span><span class="op">)</span>  <span class="co"># 1</span></code></pre></div>
+<div class="inline-figure"><img src="img/import_fromexcel.PNG" width="252"></div>
+<p>There is definitely multiple ways to do this, as we can see from the options available. I first deselect “First Row as Names” (This option is very nice if your data is already in a precleaned form and your first row simply has your variable names.) I then begin to skip rows, 5 rows of skipping leads to the first row being the first row of data.</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"img/import_fromexceloptions.PNG"</span><span class="op">)</span>  <span class="co"># 1</span></code></pre></div>
+<div class="inline-figure">
+<img src="img/import_fromexceloptions.PNG" width="398">
+Next we can handle column F that we noticed was blank. This is column 6 and stays consistent across all years (you can check this). Remembering our lessons from the Very Basics section we can subset this dataframe by removing column 6.</div>
+<p>Hence we have something that will look like the following for our command for our script.</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span>                                                                                                                                    <span class="co"># 1</span>
+<span class="va">workingdir</span><span class="op">&lt;-</span><span class="st">"C:/Users/weste/Documents/GitHub/Rcourse"</span>                                                                                              <span class="co"># 2</span>
+<span class="va">bls_unemp_90</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">folder_raw_data</span>, <span class="st">"/bls_unemp_90.xlsx"</span><span class="op">)</span>, col_names<span class="op">=</span><span class="cn">FALSE</span>, skip<span class="op">=</span><span class="fl">5</span><span class="op">)</span>                                                 <span class="co"># 3</span>
+<span class="va">bls_unemp_90</span><span class="op">&lt;-</span><span class="va">bls_unemp_90</span><span class="op">[</span>,<span class="op">-</span><span class="fl">6</span><span class="op">]</span>                                                                                                                    <span class="co"># 4</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">bls_unemp_90</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"LAUS_code"</span>, <span class="st">"State_fips"</span>, <span class="st">"County_fips"</span>, <span class="st">"County_name"</span>, <span class="st">"Year"</span>, <span class="st">"Labor_force"</span>, <span class="st">"Employed"</span>, <span class="st">"Unemployed"</span>, <span class="st">"Unemp_rate"</span><span class="op">)</span>  <span class="co"># 5</span></code></pre></div>
+<p>Where the last line above we are giving our columns names based on the names we saw in the excel document.</p>
+<p>We can then observe our data frame to ssee if it’s fully cleaned. At first it seems so (I actually initially thought so). However when reading in the data, we grabbed 2 extra rows at the end of the file. Hence we have 2 rows at the end of our data frame that are NA’s. Let’s drop these two rows, to do this we can use a command is.na and prior to it include an “!” saying ‘not is.na.’</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bls_unemp_90</span><span class="op">&lt;-</span><span class="va">bls_unemp_90</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">bls_unemp_90</span><span class="op">$</span><span class="va">State_fips</span><span class="op">)</span>,<span class="op">]</span>  <span class="co"># 1</span></code></pre></div>
+<p><strong>Here is a good place to pause if you want a challenge. You should have all the tools needed to write a loop to download all files from 1990-2019.</strong></p>
+</div>
+<div id="download-loop" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Download Loop<a class="anchor" aria-label="anchor" href="#download-loop"><i class="fas fa-link"></i></a>
+</h2>
+<p>In the next sections we will be using <a href="https://www.bls.gov/lau/home.htm">county level employment/labor force data from BLS</a> to learn more about working with actual data. We will be using the <strong>Labor force data by county, yearly annual averages</strong>. There is data from 1990-2019 (as of writing these notes). To start we are going to download this data and then read it into R.</p>
+<p>We can use a loop to download/clean our data such as this:</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="http://stringr.tidyverse.org">stringr</a></span><span class="op">)</span>                                                                <span class="co"># 1</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span>                                                                 <span class="co"># 2</span>
+<span class="va">unemp_data</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span>                                                        <span class="co"># 3</span>
+<span class="va">years</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">90</span><span class="op">:</span><span class="fl">99</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">19</span><span class="op">)</span>                                                           <span class="co"># 4</span>
+<span class="va">years</span><span class="op">&lt;-</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_pad.html">str_pad</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">years</span><span class="op">)</span>, <span class="fl">2</span>, <span class="st">"left"</span>, <span class="st">"0"</span><span class="op">)</span>                             <span class="co"># 5</span>
+<span class="va">years_l</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">years</span><span class="op">)</span>                                                          <span class="co"># 6</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">years_l</span><span class="op">)</span><span class="op">{</span>                                                           <span class="co"># 7</span>
+<span class="va">url</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"https://www.bls.gov/lau/laucnty"</span>, <span class="va">years</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">".xlsx"</span><span class="op">)</span>               <span class="co"># 8</span>
+<span class="va">destination</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">folder_raw_data</span>, <span class="st">"/bls_unemp_"</span>, <span class="va">years</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">".xlsx"</span><span class="op">)</span>          <span class="co"># 9</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">destination</span>, mode<span class="op">=</span><span class="st">"wb"</span><span class="op">)</span>                                     <span class="co"># 10</span>
+<span class="va">temp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">folder_raw_data</span>, <span class="st">"/bls_unemp_"</span>, <span class="va">years</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,         <span class="co"># 11</span>
+  <span class="st">".xlsx"</span><span class="op">)</span>,col_names<span class="op">=</span><span class="cn">FALSE</span>, skip<span class="op">=</span><span class="fl">5</span><span class="op">)</span>                                            <span class="co"># 12</span>
+<span class="va">temp_df</span><span class="op">&lt;-</span><span class="va">temp_df</span><span class="op">[</span>,<span class="op">-</span><span class="fl">6</span><span class="op">]</span>                                                          <span class="co"># 13</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">temp_df</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"LAUS_code"</span>, <span class="st">"State_fips"</span>, <span class="st">"County_fips"</span>, <span class="st">"County_name"</span>,  <span class="co"># 14</span>
+  <span class="st">"Year"</span>, <span class="st">"Labor_force"</span>, <span class="st">"Employed"</span>, <span class="st">"Unemployed"</span>, <span class="st">"Unemp_rate"</span><span class="op">)</span>               <span class="co"># 15</span>
+<span class="va">temp_df</span><span class="op">&lt;-</span><span class="va">temp_df</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">temp_df</span><span class="op">$</span><span class="va">State_fips</span><span class="op">)</span>,<span class="op">]</span>                                  <span class="co"># 16</span>
+<span class="va">unemp_data</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">county_data</span>, <span class="va">temp_df</span><span class="op">)</span>                                        <span class="co"># 17</span>
+<span class="op">}</span>                                                                              <span class="co"># 18</span>
+<span class="va">filename</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">folder_processed_data</span>, <span class="st">"/unemp_data.rda"</span><span class="op">)</span>                     <span class="co"># 19</span>
+<span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">unemp_data</span>, file<span class="op">=</span><span class="va">filename</span><span class="op">)</span>                                                <span class="co"># 20</span></code></pre></div>
+<p>To work through this first let’s think what we are trying to achieve. The links for the downloads are all in the form of <a href="https://www.bls.gov/lau/home.htm">https://www.bls.gov/lau/laucntyZZ.xlsx</a>, where ZZ is two digits representing the year. These ZZ values run from “90”to “99” for years 1990-1999 and “00” to “19” for years 2000-2019.</p>
+<p>Let’s work through the above code line by line:</p>
+<ul>
+<li>Lines #1 &amp; #2: load required packages.</li>
+<li>Line #3: Declare unemp_data will be a data.frame. Right now it is empty, but we will add to it.</li>
+<li>Line #4: Define a vector with elements 90-99 and 0-19. (Which will correspond to the years that we will pull)</li>
+<li>Line #5 : We have a vector for years, however if we notice in the url names we need this vector to include a leading 0 in front of the single ‘character’ digits (ie “01” instead of “1”). But we don’t want a leading 0 in front of the double ‘character’ digits (ie We DON’T want “090”). Go back to the <a href="https://jmwestenberg.github.io/courses/rcourse/intro/lesson1_02/">String Manipulation</a> section if you need to refresh on this.</li>
+<li>Line #6 : Calculate the length of years and save as years_l</li>
+<li>Line #7 : See <a href="https://jmwestenberg.github.io/courses/rcourse/intro/lesson1_02/">String Manipulation</a> if defining the for loop does not make sense.</li>
+<li>Line #8 : We are creating the character string for the url for the download link. Since they all take the form of <a href="https://www.bls.gov/lau/laucntyZZ.xlsx" class="uri">https://www.bls.gov/lau/laucntyZZ.xlsx</a>, we can use one element of our years vector at a time. (See <a href="https://jmwestenberg.github.io/courses/rcourse/intro/lesson1_02/">String Manipulation</a> for explanation on paste0)</li>
+<li>Line #9 : This is of similar spirit to line #4, but this is defining the path/filename of the excel file we will save.</li>
+<li>Line #10 : This line is just telling R to download the file at that url, save it to the defined location/name, and to read it as a non-raw text form. (see <a href="https://jmwestenberg.github.io/courses/rcourse/intro/lesson1_04/">Downloading/Reading Data</a> if unclear.)</li>
+<li>Lines #11-#16: See <a href="https://jmwestenberg.github.io/courses/rcourse/intro/lesson1_04/">Downloading/Reading Data</a> for a direct explanation.</li>
+<li>Line #17: rbind appends data. Hence since all of our data has the same format and has a variable indicating the year, we can simply append.</li>
+<li>Line #19: Create the filepath (to our processed_data folder) where we will save the file, what the file name and type is.</li>
+<li>Line #20: save the combined data to the location/name we defined above.</li>
+</ul>
+<p>We now have our data cleaned and saved for our next lesson when we will start to work with it more!</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> Preface</a></div>
+<div class="next"><a href="tidyverse.html"><span class="header-section-number">3</span> Tidyverse</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#intro"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="nav-link" href="#very-basics"><span class="header-section-number">2.1</span> Very Basics</a></li>
+<li><a class="nav-link" href="#writing-loops"><span class="header-section-number">2.2</span> Writing Loops</a></li>
+<li>
+<a class="nav-link" href="#string-manipulation"><span class="header-section-number">2.3</span> String Manipulation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#string-concatenation"><span class="header-section-number">2.3.1</span> String Concatenation</a></li>
+<li><a class="nav-link" href="#string-padding"><span class="header-section-number">2.3.2</span> String Padding</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#project-organization"><span class="header-section-number">2.4</span> Project Organization</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#first-r-script"><span class="header-section-number">2.4.1</span> First R script!</a></li></ul>
+</li>
+<li><a class="nav-link" href="#downloading-within-r"><span class="header-section-number">2.5</span> Downloading within R</a></li>
+<li><a class="nav-link" href="#reading-in-data"><span class="header-section-number">2.6</span> Reading in Data</a></li>
+<li><a class="nav-link" href="#download-loop"><span class="header-section-number">2.7</span> Download Loop</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Introduction to Data Science in R</strong>" was written by Joseph M. Westenberg. It was last built on 2021-07-14.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,4283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Tidyverse | Introduction to Data Science in R</title>
+<meta name="author" content="Joseph M. Westenberg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.9/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="libs/plotly-binding-4.9.4.1/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS -->
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Introduction to Data Science in R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Preface</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="active" href="tidyverse.html"><span class="header-section-number">3</span> Tidyverse</a></li>
+<li><a class="" href="exporting.html"><span class="header-section-number">4</span> Exporting Results</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="tidyverse" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Tidyverse<a class="anchor" aria-label="anchor" href="#tidyverse"><i class="fas fa-link"></i></a>
+</h1>
+<p>The goal of this Tidyverse section is to learn</p>
+<ul>
+<li>Subsetting Datasets</li>
+<li>Merging Datasets</li>
+<li>Summarizing</li>
+<li>Plotting</li>
+</ul>
+<p>In this section we will be continuing to be working with the BLS data we downloaded in the Introduction.</p>
+<p>Tidyverse provides us with some useful tools for data manipulation and cleaning. I include examples and descriptions of the commands I have most frequently used.</p>
+<div id="filtering-with-pipes" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Filtering with Pipes<a class="anchor" aria-label="anchor" href="#filtering-with-pipes"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">indiana</span><span class="op">&lt;-</span>                                    <span class="co"># 1  # 1</span>
+    <span class="va">unemp_data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">State_fips</span><span class="op">==</span><span class="st">"18"</span><span class="op">)</span>  <span class="co"># 2  # 2</span></code></pre></div>
+<p>What is going on in this line of code? Let’s start with the second line. The operator %&gt;% is called a pipe. This comes from a package called magittr which is included within tidyverse. Pipes are very handy for neatly writing longer sequences of code. Here we begin with a pretty simple example. We can think of pipes as saying “then.” That is it takes the argument before it and uses it as input in the following command. Here we are using a filter command, so we are saying take our data.frame county_data, then filter or “give us” the values where State_fips is equal to “18” (this is fips code for Indiana. Go Hoosiers!). So in summary we are just filtering out indiana data and saving it as a new data frame (this is line 1). Note: this operation does NOT impact county_data, the only way we ‘over write’ a data frame is to explicitly tell it to. For example the following WOULD overwrite county_data.</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">unemp_data</span><span class="op">&lt;-</span><span class="va">unemp_data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">State_fips</span><span class="op">==</span><span class="st">"18"</span><span class="op">)</span>  <span class="co"># 1  # 1</span></code></pre></div>
+</div>
+<div id="plotting-data" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Plotting Data<a class="anchor" aria-label="anchor" href="#plotting-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this lesson we will be plotting the data gathered in previous lessons. ggplot2 is a very popular package for plotting and is now included as part of the tidyverse package. It allows us to make many different kinds of plots and customize them. As it is so popular there are many guides for it. <a href="https://ggplot2.tidyverse.org/">Tidyverse’s website</a> summarizes some very useful resources.</p>
+<p>As ggplot2 has so many options, we will just be barely skimming the surface in this introduction. Let’s start with a minimal command. First let’s load in ggplot2 filter our data down into just Indiana.</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>                                    <span class="co"># 1  # 1</span>
+                                                    <span class="co"># 2  # 2</span>
+<span class="va">indiana</span> <span class="op">&lt;-</span> <span class="va">unemp_data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">State_fips</span><span class="op">==</span><span class="st">"18"</span><span class="op">)</span>  <span class="co"># 3  # 3</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,   <span class="co"># 1  # 1</span>
+    colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>     <span class="co"># 2  # 2</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span>                                    <span class="co"># 3  # 3</span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/unnamed-chunk-37-1.png" width="672"></div>
+<ul>
+<li>Line #1: Tells ggplot we will be using the data.frame indiana. aes is short for aesthetics. This is where we tell ggplot how to map our data into the plots. Here I want ggplot to plot Year on the x-axis, Unemp_rate on the y-axis.</li>
+<li>Line #2: A continuation of the aesthetic mapping, his line is saying plot separately for each County_fips separately, giving them a different color.</li>
+<li>Line #3: Tells ggplot to plot the data as lines.</li>
+</ul>
+<p>First thing after this plot, the legend is excessive. Let’s just suppress it for now. To do this we can define the legend.position in theme as none. The theme command allows for a lot of customization with the plot. If you want to see all options <a href="https://ggplot2.tidyverse.org/reference/theme.html">click here.</a> Let’s also change the thickness of the lines, we can do this with the alpha argument.</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,   <span class="co"># 1  # 1</span>
+    colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>     <span class="co"># 2  # 2</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.3</span><span class="op">)</span><span class="op">+</span>                           <span class="co"># 3  # 3</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>                  <span class="co"># 4  # 4</span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/unnamed-chunk-38-1.png" width="672"></div>
+<p>This already is looking a lot better. But can we do something about the labels on the x axis, they are overlaying on each other. We could make the text smaller but then it would be difficult to see, so let’s just rotate them. Also let’s make the y-axis name a bit more meaningful.</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,   <span class="co"># 1  # 1</span>
+    colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>     <span class="co"># 2  # 2</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.3</span><span class="op">)</span><span class="op">+</span>                           <span class="co"># 3  # 3</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span>,                  <span class="co"># 4  # 4</span>
+    axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle<span class="op">=</span><span class="fl">45</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>        <span class="co"># 5  # 5</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">'Indiana Unemployment Rate by County'</span><span class="op">)</span>    <span class="co"># 6  # 6</span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672"></div>
+<p>Now we’re getting somewhere! But what if we want to emphasize the county Bloomington is in, Monroe County?</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">monroecty</span><span class="op">&lt;-</span><span class="va">indiana</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">County_fips</span><span class="op">==</span><span class="st">"105"</span><span class="op">)</span>       <span class="co"># 1   # 1</span>
+                                                        <span class="co"># 2   # 2</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,          <span class="co"># 3   # 3</span>
+    colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>            <span class="co"># 4   # 4</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.3</span><span class="op">)</span><span class="op">+</span>                                  <span class="co"># 5   # 5</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">monroecty</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,   <span class="co"># 6   # 6</span>
+    colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="fl">1</span><span class="op">)</span>,                       <span class="co"># 7   # 7</span>
+    size<span class="op">=</span><span class="fl">0.6</span>, colour<span class="op">=</span><span class="st">'black'</span><span class="op">)</span> <span class="op">+</span>                         <span class="co"># 8   # 8</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span>,                         <span class="co"># 9   # 9</span>
+    axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle<span class="op">=</span><span class="fl">45</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>              <span class="co"># 10  # 10</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">'Indiana Unemployment Rate by County'</span><span class="op">)</span>          <span class="co"># 11  # 11</span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672"></div>
+<p>We can make the black line for Monroe County ‘pop’ a bit more too. Let’s change the opacity of the other counties lines. To do this we can set a value, alpha. This takes values 0 to 1 where smaller values are more transparent.</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,          <span class="co"># 1  # 1</span>
+    colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>            <span class="co"># 2  # 2</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">0.3</span>, alpha<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">+</span>                       <span class="co"># 3  # 3</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">monroecty</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,   <span class="co"># 4  # 4</span>
+    colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="fl">1</span><span class="op">)</span>,                       <span class="co"># 5  # 5</span>
+    size<span class="op">=</span><span class="fl">0.6</span>, colour<span class="op">=</span><span class="st">'black'</span><span class="op">)</span> <span class="op">+</span>                         <span class="co"># 6  # 6</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span>,                         <span class="co"># 7  # 7</span>
+    axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle<span class="op">=</span><span class="fl">45</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>               <span class="co"># 8  # 8</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">'Indiana Unemployment Rate by County'</span><span class="op">)</span>           <span class="co"># 9  # 9</span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="672"></div>
+<div id="scatter-plot-geom_point" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> Scatter plot (geom_point)<a class="anchor" aria-label="anchor" href="#scatter-plot-geom_point"><i class="fas fa-link"></i></a>
+</h3>
+<p>What if we want points to insteaed of lines for each year?</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">indiana</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Year</span>, y<span class="op">=</span><span class="va">Unemp_rate</span>,   <span class="co"># 1  # 1</span>
+  colour<span class="op">=</span><span class="va">County_fips</span>, group<span class="op">=</span><span class="va">County_fips</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>       <span class="co"># 2  # 2</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span>                                   <span class="co"># 3  # 3</span></code></pre></div>
+<div class="inline-figure"><img src="bookdown-demo_files/figure-html/unnamed-chunk-42-1.png" width="672"></div>
+</div>
+</div>
+<div id="manipulating-within-groups" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Manipulating within Groups<a class="anchor" aria-label="anchor" href="#manipulating-within-groups"><i class="fas fa-link"></i></a>
+</h2>
+<p>Our next chunk of code gets a bit more complex, let’s take it peice by peice though.</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R">  <span class="va">indiana</span> <span class="op">%&gt;%</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">%&gt;%</span>          <span class="co"># 1  # 1</span>
+    <span class="fu">summarise</span><span class="op">(</span>Average<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 2  # 2</span></code></pre></div>
+<p>Let’s again take it from the end and work our ways backwards through it. The 3rd line above is calculating a new variable within a group that is called ‘Average.’ The group (line 2) that we are calculating within is each Year for our Indiana data.frame. That is this snippet of code will give us one value back for each year, the average Labor Force level across Indiana’s counties.</p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; ">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Year
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Average
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:right;">
+30593.65
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:right;">
+30357.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1992
+</td>
+<td style="text-align:right;">
+31058.60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1993
+</td>
+<td style="text-align:right;">
+32046.84
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1994
+</td>
+<td style="text-align:right;">
+33308.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1995
+</td>
+<td style="text-align:right;">
+34078.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1996
+</td>
+<td style="text-align:right;">
+33800.80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1997
+</td>
+<td style="text-align:right;">
+33919.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998
+</td>
+<td style="text-align:right;">
+33947.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+33965.91
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+33982.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001
+</td>
+<td style="text-align:right;">
+34140.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002
+</td>
+<td style="text-align:right;">
+34469.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003
+</td>
+<td style="text-align:right;">
+34597.76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004
+</td>
+<td style="text-align:right;">
+34432.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005
+</td>
+<td style="text-align:right;">
+34841.75
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006
+</td>
+<td style="text-align:right;">
+35164.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007
+</td>
+<td style="text-align:right;">
+34866.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008
+</td>
+<td style="text-align:right;">
+35131.49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009
+</td>
+<td style="text-align:right;">
+34717.45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010
+</td>
+<td style="text-align:right;">
+34512.97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011
+</td>
+<td style="text-align:right;">
+34586.91
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012
+</td>
+<td style="text-align:right;">
+34454.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013
+</td>
+<td style="text-align:right;">
+34656.59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014
+</td>
+<td style="text-align:right;">
+35052.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015
+</td>
+<td style="text-align:right;">
+35508.30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016
+</td>
+<td style="text-align:right;">
+36178.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017
+</td>
+<td style="text-align:right;">
+36243.96
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018
+</td>
+<td style="text-align:right;">
+36756.59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019
+</td>
+<td style="text-align:right;">
+36819.25
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>This group_by command paired with summarise is quite useful. For example going back to our original data.frame, county_data. Suppose we wanted to do what we just did but for all states. That is calculate within each state and year combination. With the group_by command this is quite simple! (I print the first 100 lines of output below)</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">unemp_data</span> <span class="op">%&gt;%</span>                          <span class="co"># 1  # 1</span>
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">Year</span>, <span class="va">State_fips</span><span class="op">)</span> <span class="op">%&gt;%</span>        <span class="co"># 2  # 2</span>
+  <span class="fu">summarise</span><span class="op">(</span>Average<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 3  # 3</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by 'Year'. You can override using the `.groups` argument.</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; ">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Year
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+State_fips
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Average
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+01
+</td>
+<td style="text-align:right;">
+28468.343
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+02
+</td>
+<td style="text-align:right;">
+10323.923
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+04
+</td>
+<td style="text-align:right;">
+119079.067
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:right;">
+15091.147
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+06
+</td>
+<td style="text-align:right;">
+261007.414
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+08
+</td>
+<td style="text-align:right;">
+27557.641
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+09
+</td>
+<td style="text-align:right;">
+227471.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:right;">
+120074.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:right;">
+328924.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:right;">
+96480.269
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:right;">
+20653.579
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:right;">
+137730.500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:right;">
+11193.045
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+17
+</td>
+<td style="text-align:right;">
+58304.049
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+18
+</td>
+<td style="text-align:right;">
+30593.652
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:right;">
+14664.212
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:right;">
+12119.305
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+21
+</td>
+<td style="text-align:right;">
+14619.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+22
+</td>
+<td style="text-align:right;">
+29216.547
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:right;">
+39563.625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+24
+</td>
+<td style="text-align:right;">
+107919.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+25
+</td>
+<td style="text-align:right;">
+229027.357
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+26
+</td>
+<td style="text-align:right;">
+55509.072
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+27
+</td>
+<td style="text-align:right;">
+27573.690
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+28
+</td>
+<td style="text-align:right;">
+14438.854
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+29
+</td>
+<td style="text-align:right;">
+22737.852
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+30
+</td>
+<td style="text-align:right;">
+7198.929
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+31
+</td>
+<td style="text-align:right;">
+8871.215
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:right;">
+39407.176
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+33
+</td>
+<td style="text-align:right;">
+62009.100
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+34
+</td>
+<td style="text-align:right;">
+193117.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+35
+</td>
+<td style="text-align:right;">
+21630.061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+36
+</td>
+<td style="text-align:right;">
+142149.565
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+37
+</td>
+<td style="text-align:right;">
+34765.130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+38
+</td>
+<td style="text-align:right;">
+5985.226
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+39
+</td>
+<td style="text-align:right;">
+61586.670
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+40
+</td>
+<td style="text-align:right;">
+19786.338
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+41
+</td>
+<td style="text-align:right;">
+41408.833
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+42
+</td>
+<td style="text-align:right;">
+86992.045
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+44
+</td>
+<td style="text-align:right;">
+105072.600
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+45
+</td>
+<td style="text-align:right;">
+37903.326
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+46
+</td>
+<td style="text-align:right;">
+5260.303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+47
+</td>
+<td style="text-align:right;">
+25207.768
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+48
+</td>
+<td style="text-align:right;">
+33932.858
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+49
+</td>
+<td style="text-align:right;">
+28352.138
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:right;">
+21768.214
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+51
+</td>
+<td style="text-align:right;">
+24452.541
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+53
+</td>
+<td style="text-align:right;">
+64751.974
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+54
+</td>
+<td style="text-align:right;">
+13857.600
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+55
+</td>
+<td style="text-align:right;">
+35970.542
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+56
+</td>
+<td style="text-align:right;">
+10259.348
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:left;">
+72
+</td>
+<td style="text-align:right;">
+14517.090
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+01
+</td>
+<td style="text-align:right;">
+28665.134
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+02
+</td>
+<td style="text-align:right;">
+10626.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+04
+</td>
+<td style="text-align:right;">
+120334.200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:right;">
+15060.213
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+06
+</td>
+<td style="text-align:right;">
+260801.552
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+08
+</td>
+<td style="text-align:right;">
+28035.766
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+09
+</td>
+<td style="text-align:right;">
+230137.750
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:right;">
+120571.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:right;">
+321433.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:right;">
+97499.104
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:right;">
+20619.044
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:right;">
+142897.250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:right;">
+11547.432
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+17
+</td>
+<td style="text-align:right;">
+58277.431
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+18
+</td>
+<td style="text-align:right;">
+30357.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:right;">
+14896.960
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:right;">
+12190.105
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+21
+</td>
+<td style="text-align:right;">
+14689.508
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+22
+</td>
+<td style="text-align:right;">
+29804.094
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:right;">
+40318.625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+24
+</td>
+<td style="text-align:right;">
+109023.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+25
+</td>
+<td style="text-align:right;">
+228211.357
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+26
+</td>
+<td style="text-align:right;">
+55369.482
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+27
+</td>
+<td style="text-align:right;">
+27903.586
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+28
+</td>
+<td style="text-align:right;">
+14439.512
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+29
+</td>
+<td style="text-align:right;">
+23000.835
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+30
+</td>
+<td style="text-align:right;">
+7247.179
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+31
+</td>
+<td style="text-align:right;">
+8992.527
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:right;">
+41338.118
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+33
+</td>
+<td style="text-align:right;">
+61429.900
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+34
+</td>
+<td style="text-align:right;">
+193610.571
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+35
+</td>
+<td style="text-align:right;">
+21974.485
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+36
+</td>
+<td style="text-align:right;">
+140985.613
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+37
+</td>
+<td style="text-align:right;">
+35380.200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+38
+</td>
+<td style="text-align:right;">
+5947.509
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+39
+</td>
+<td style="text-align:right;">
+61726.409
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+40
+</td>
+<td style="text-align:right;">
+19575.922
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+41
+</td>
+<td style="text-align:right;">
+42135.556
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+42
+</td>
+<td style="text-align:right;">
+87390.030
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+44
+</td>
+<td style="text-align:right;">
+103603.400
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+45
+</td>
+<td style="text-align:right;">
+38234.348
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+46
+</td>
+<td style="text-align:right;">
+5303.182
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+47
+</td>
+<td style="text-align:right;">
+25407.611
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+48
+</td>
+<td style="text-align:right;">
+34512.854
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+49
+</td>
+<td style="text-align:right;">
+29390.414
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:right;">
+21683.857
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+51
+</td>
+<td style="text-align:right;">
+25107.677
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:left;">
+53
+</td>
+<td style="text-align:right;">
+65281.667
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Average is just one statistic we may want to calculate, how about percentiles, minimum, maximum, standard deviation. our summarise command will accept more than one argument, we just have to separate by a comma. Let’s also save this as a new data.frame for use in future lessons.</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">indiana_laborforce</span><span class="op">&lt;-</span>                       <span class="co"># 1   # 1</span>
+  <span class="va">indiana</span> <span class="op">%&gt;%</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">%&gt;%</span>           <span class="co"># 2   # 2</span>
+  <span class="fu">summarise</span><span class="op">(</span>Min<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span>,          <span class="co"># 3   # 3</span>
+    p10th<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">Labor_force</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>,   <span class="co"># 4   # 4</span>
+    p25th<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">Labor_force</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span><span class="op">)</span><span class="op">)</span>,  <span class="co"># 5   # 5</span>
+    p50th<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">Labor_force</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>,   <span class="co"># 6   # 6</span>
+    p75th<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">Labor_force</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.75</span><span class="op">)</span><span class="op">)</span>,  <span class="co"># 7   # 7</span>
+    p90th<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">Labor_force</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span><span class="op">)</span>,   <span class="co"># 8   # 8</span>
+    Max<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span>,                  <span class="co"># 9   # 9</span>
+    Average<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span>,            <span class="co"># 10  # 10</span>
+    StDev<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">Labor_force</span><span class="op">)</span><span class="op">)</span>                <span class="co"># 11  # 11</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; ">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Year
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Min
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+p10th
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+p25th
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+p50th
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+p75th
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+p90th
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Max
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Average
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+StDev
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1990
+</td>
+<td style="text-align:right;">
+2629
+</td>
+<td style="text-align:right;">
+6639.3
+</td>
+<td style="text-align:right;">
+9617.50
+</td>
+<td style="text-align:right;">
+14858.5
+</td>
+<td style="text-align:right;">
+30089.50
+</td>
+<td style="text-align:right;">
+60784.5
+</td>
+<td style="text-align:right;">
+424053
+</td>
+<td style="text-align:right;">
+30593.65
+</td>
+<td style="text-align:right;">
+52989.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991
+</td>
+<td style="text-align:right;">
+2541
+</td>
+<td style="text-align:right;">
+6380.5
+</td>
+<td style="text-align:right;">
+9480.00
+</td>
+<td style="text-align:right;">
+14713.0
+</td>
+<td style="text-align:right;">
+30131.00
+</td>
+<td style="text-align:right;">
+62309.9
+</td>
+<td style="text-align:right;">
+421789
+</td>
+<td style="text-align:right;">
+30357.00
+</td>
+<td style="text-align:right;">
+52670.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1992
+</td>
+<td style="text-align:right;">
+2550
+</td>
+<td style="text-align:right;">
+6284.2
+</td>
+<td style="text-align:right;">
+9615.50
+</td>
+<td style="text-align:right;">
+15169.5
+</td>
+<td style="text-align:right;">
+31117.00
+</td>
+<td style="text-align:right;">
+63623.2
+</td>
+<td style="text-align:right;">
+429239
+</td>
+<td style="text-align:right;">
+31058.60
+</td>
+<td style="text-align:right;">
+53551.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1993
+</td>
+<td style="text-align:right;">
+2607
+</td>
+<td style="text-align:right;">
+6200.6
+</td>
+<td style="text-align:right;">
+10037.75
+</td>
+<td style="text-align:right;">
+15652.5
+</td>
+<td style="text-align:right;">
+32034.75
+</td>
+<td style="text-align:right;">
+64549.9
+</td>
+<td style="text-align:right;">
+438377
+</td>
+<td style="text-align:right;">
+32046.84
+</td>
+<td style="text-align:right;">
+54683.97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1994
+</td>
+<td style="text-align:right;">
+2681
+</td>
+<td style="text-align:right;">
+6453.1
+</td>
+<td style="text-align:right;">
+10480.50
+</td>
+<td style="text-align:right;">
+16472.0
+</td>
+<td style="text-align:right;">
+33808.25
+</td>
+<td style="text-align:right;">
+66506.3
+</td>
+<td style="text-align:right;">
+453457
+</td>
+<td style="text-align:right;">
+33308.01
+</td>
+<td style="text-align:right;">
+56427.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1995
+</td>
+<td style="text-align:right;">
+2714
+</td>
+<td style="text-align:right;">
+6543.2
+</td>
+<td style="text-align:right;">
+10994.75
+</td>
+<td style="text-align:right;">
+16648.5
+</td>
+<td style="text-align:right;">
+34588.00
+</td>
+<td style="text-align:right;">
+67364.5
+</td>
+<td style="text-align:right;">
+459603
+</td>
+<td style="text-align:right;">
+34078.00
+</td>
+<td style="text-align:right;">
+57219.27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1996
+</td>
+<td style="text-align:right;">
+2724
+</td>
+<td style="text-align:right;">
+6522.6
+</td>
+<td style="text-align:right;">
+10827.50
+</td>
+<td style="text-align:right;">
+16551.0
+</td>
+<td style="text-align:right;">
+34597.25
+</td>
+<td style="text-align:right;">
+66487.5
+</td>
+<td style="text-align:right;">
+453728
+</td>
+<td style="text-align:right;">
+33800.80
+</td>
+<td style="text-align:right;">
+56670.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1997
+</td>
+<td style="text-align:right;">
+2698
+</td>
+<td style="text-align:right;">
+6585.3
+</td>
+<td style="text-align:right;">
+10966.00
+</td>
+<td style="text-align:right;">
+16671.5
+</td>
+<td style="text-align:right;">
+34786.50
+</td>
+<td style="text-align:right;">
+66195.3
+</td>
+<td style="text-align:right;">
+453928
+</td>
+<td style="text-align:right;">
+33919.72
+</td>
+<td style="text-align:right;">
+56870.28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998
+</td>
+<td style="text-align:right;">
+2701
+</td>
+<td style="text-align:right;">
+6629.7
+</td>
+<td style="text-align:right;">
+11008.75
+</td>
+<td style="text-align:right;">
+16660.0
+</td>
+<td style="text-align:right;">
+34150.50
+</td>
+<td style="text-align:right;">
+65887.6
+</td>
+<td style="text-align:right;">
+452412
+</td>
+<td style="text-align:right;">
+33947.47
+</td>
+<td style="text-align:right;">
+56827.82
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+2691
+</td>
+<td style="text-align:right;">
+6496.7
+</td>
+<td style="text-align:right;">
+10986.75
+</td>
+<td style="text-align:right;">
+16958.5
+</td>
+<td style="text-align:right;">
+33968.50
+</td>
+<td style="text-align:right;">
+65196.0
+</td>
+<td style="text-align:right;">
+448732
+</td>
+<td style="text-align:right;">
+33965.91
+</td>
+<td style="text-align:right;">
+56434.89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+2985
+</td>
+<td style="text-align:right;">
+7053.5
+</td>
+<td style="text-align:right;">
+10816.50
+</td>
+<td style="text-align:right;">
+16984.5
+</td>
+<td style="text-align:right;">
+34996.50
+</td>
+<td style="text-align:right;">
+63718.6
+</td>
+<td style="text-align:right;">
+455135
+</td>
+<td style="text-align:right;">
+33982.50
+</td>
+<td style="text-align:right;">
+56818.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001
+</td>
+<td style="text-align:right;">
+2982
+</td>
+<td style="text-align:right;">
+7085.7
+</td>
+<td style="text-align:right;">
+10709.00
+</td>
+<td style="text-align:right;">
+17127.5
+</td>
+<td style="text-align:right;">
+34674.75
+</td>
+<td style="text-align:right;">
+64832.0
+</td>
+<td style="text-align:right;">
+459505
+</td>
+<td style="text-align:right;">
+34140.32
+</td>
+<td style="text-align:right;">
+57318.59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002
+</td>
+<td style="text-align:right;">
+3051
+</td>
+<td style="text-align:right;">
+7040.7
+</td>
+<td style="text-align:right;">
+10802.75
+</td>
+<td style="text-align:right;">
+17244.5
+</td>
+<td style="text-align:right;">
+34974.75
+</td>
+<td style="text-align:right;">
+66572.3
+</td>
+<td style="text-align:right;">
+462330
+</td>
+<td style="text-align:right;">
+34469.34
+</td>
+<td style="text-align:right;">
+57807.67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003
+</td>
+<td style="text-align:right;">
+3092
+</td>
+<td style="text-align:right;">
+6941.0
+</td>
+<td style="text-align:right;">
+10709.50
+</td>
+<td style="text-align:right;">
+17199.0
+</td>
+<td style="text-align:right;">
+34514.75
+</td>
+<td style="text-align:right;">
+67751.5
+</td>
+<td style="text-align:right;">
+464331
+</td>
+<td style="text-align:right;">
+34597.76
+</td>
+<td style="text-align:right;">
+58056.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004
+</td>
+<td style="text-align:right;">
+3109
+</td>
+<td style="text-align:right;">
+6815.2
+</td>
+<td style="text-align:right;">
+10547.00
+</td>
+<td style="text-align:right;">
+17083.5
+</td>
+<td style="text-align:right;">
+33431.50
+</td>
+<td style="text-align:right;">
+68476.2
+</td>
+<td style="text-align:right;">
+459140
+</td>
+<td style="text-align:right;">
+34432.72
+</td>
+<td style="text-align:right;">
+57583.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005
+</td>
+<td style="text-align:right;">
+3152
+</td>
+<td style="text-align:right;">
+7075.8
+</td>
+<td style="text-align:right;">
+10702.75
+</td>
+<td style="text-align:right;">
+17357.5
+</td>
+<td style="text-align:right;">
+33606.00
+</td>
+<td style="text-align:right;">
+69985.6
+</td>
+<td style="text-align:right;">
+459492
+</td>
+<td style="text-align:right;">
+34841.75
+</td>
+<td style="text-align:right;">
+57925.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006
+</td>
+<td style="text-align:right;">
+3107
+</td>
+<td style="text-align:right;">
+6883.1
+</td>
+<td style="text-align:right;">
+10620.50
+</td>
+<td style="text-align:right;">
+17326.5
+</td>
+<td style="text-align:right;">
+34554.50
+</td>
+<td style="text-align:right;">
+72792.0
+</td>
+<td style="text-align:right;">
+461468
+</td>
+<td style="text-align:right;">
+35164.35
+</td>
+<td style="text-align:right;">
+58484.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007
+</td>
+<td style="text-align:right;">
+3026
+</td>
+<td style="text-align:right;">
+6816.7
+</td>
+<td style="text-align:right;">
+10447.50
+</td>
+<td style="text-align:right;">
+16881.0
+</td>
+<td style="text-align:right;">
+34304.50
+</td>
+<td style="text-align:right;">
+73128.1
+</td>
+<td style="text-align:right;">
+460046
+</td>
+<td style="text-align:right;">
+34866.21
+</td>
+<td style="text-align:right;">
+58342.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008
+</td>
+<td style="text-align:right;">
+3044
+</td>
+<td style="text-align:right;">
+6816.2
+</td>
+<td style="text-align:right;">
+10488.00
+</td>
+<td style="text-align:right;">
+16673.5
+</td>
+<td style="text-align:right;">
+34065.50
+</td>
+<td style="text-align:right;">
+75072.0
+</td>
+<td style="text-align:right;">
+463200
+</td>
+<td style="text-align:right;">
+35131.49
+</td>
+<td style="text-align:right;">
+58819.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009
+</td>
+<td style="text-align:right;">
+3088
+</td>
+<td style="text-align:right;">
+6758.4
+</td>
+<td style="text-align:right;">
+10434.25
+</td>
+<td style="text-align:right;">
+16452.0
+</td>
+<td style="text-align:right;">
+33700.25
+</td>
+<td style="text-align:right;">
+74434.1
+</td>
+<td style="text-align:right;">
+457524
+</td>
+<td style="text-align:right;">
+34717.45
+</td>
+<td style="text-align:right;">
+58083.80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010
+</td>
+<td style="text-align:right;">
+3263
+</td>
+<td style="text-align:right;">
+6440.5
+</td>
+<td style="text-align:right;">
+10308.00
+</td>
+<td style="text-align:right;">
+16622.0
+</td>
+<td style="text-align:right;">
+33921.75
+</td>
+<td style="text-align:right;">
+74406.0
+</td>
+<td style="text-align:right;">
+452836
+</td>
+<td style="text-align:right;">
+34512.97
+</td>
+<td style="text-align:right;">
+57806.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011
+</td>
+<td style="text-align:right;">
+3210
+</td>
+<td style="text-align:right;">
+6459.9
+</td>
+<td style="text-align:right;">
+10184.25
+</td>
+<td style="text-align:right;">
+16630.5
+</td>
+<td style="text-align:right;">
+33804.00
+</td>
+<td style="text-align:right;">
+75620.5
+</td>
+<td style="text-align:right;">
+456011
+</td>
+<td style="text-align:right;">
+34586.91
+</td>
+<td style="text-align:right;">
+58199.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012
+</td>
+<td style="text-align:right;">
+3181
+</td>
+<td style="text-align:right;">
+6336.2
+</td>
+<td style="text-align:right;">
+10058.50
+</td>
+<td style="text-align:right;">
+16453.0
+</td>
+<td style="text-align:right;">
+32924.00
+</td>
+<td style="text-align:right;">
+76458.0
+</td>
+<td style="text-align:right;">
+458377
+</td>
+<td style="text-align:right;">
+34454.88
+</td>
+<td style="text-align:right;">
+58388.80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013
+</td>
+<td style="text-align:right;">
+3165
+</td>
+<td style="text-align:right;">
+6325.9
+</td>
+<td style="text-align:right;">
+9900.50
+</td>
+<td style="text-align:right;">
+16289.5
+</td>
+<td style="text-align:right;">
+33053.00
+</td>
+<td style="text-align:right;">
+78149.5
+</td>
+<td style="text-align:right;">
+463346
+</td>
+<td style="text-align:right;">
+34656.59
+</td>
+<td style="text-align:right;">
+58983.65
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014
+</td>
+<td style="text-align:right;">
+3216
+</td>
+<td style="text-align:right;">
+6401.2
+</td>
+<td style="text-align:right;">
+9851.50
+</td>
+<td style="text-align:right;">
+16524.0
+</td>
+<td style="text-align:right;">
+33215.50
+</td>
+<td style="text-align:right;">
+80113.3
+</td>
+<td style="text-align:right;">
+467169
+</td>
+<td style="text-align:right;">
+35052.00
+</td>
+<td style="text-align:right;">
+59579.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015
+</td>
+<td style="text-align:right;">
+3178
+</td>
+<td style="text-align:right;">
+6341.8
+</td>
+<td style="text-align:right;">
+9924.75
+</td>
+<td style="text-align:right;">
+16908.0
+</td>
+<td style="text-align:right;">
+33960.00
+</td>
+<td style="text-align:right;">
+82327.7
+</td>
+<td style="text-align:right;">
+472330
+</td>
+<td style="text-align:right;">
+35508.30
+</td>
+<td style="text-align:right;">
+60275.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016
+</td>
+<td style="text-align:right;">
+3226
+</td>
+<td style="text-align:right;">
+6444.8
+</td>
+<td style="text-align:right;">
+9930.50
+</td>
+<td style="text-align:right;">
+17093.5
+</td>
+<td style="text-align:right;">
+35149.00
+</td>
+<td style="text-align:right;">
+85223.0
+</td>
+<td style="text-align:right;">
+481434
+</td>
+<td style="text-align:right;">
+36178.11
+</td>
+<td style="text-align:right;">
+61517.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017
+</td>
+<td style="text-align:right;">
+3153
+</td>
+<td style="text-align:right;">
+6512.5
+</td>
+<td style="text-align:right;">
+9783.75
+</td>
+<td style="text-align:right;">
+17119.0
+</td>
+<td style="text-align:right;">
+35516.50
+</td>
+<td style="text-align:right;">
+85487.6
+</td>
+<td style="text-align:right;">
+483607
+</td>
+<td style="text-align:right;">
+36243.96
+</td>
+<td style="text-align:right;">
+61840.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018
+</td>
+<td style="text-align:right;">
+3189
+</td>
+<td style="text-align:right;">
+6561.9
+</td>
+<td style="text-align:right;">
+9943.50
+</td>
+<td style="text-align:right;">
+17334.5
+</td>
+<td style="text-align:right;">
+36211.00
+</td>
+<td style="text-align:right;">
+86905.8
+</td>
+<td style="text-align:right;">
+488698
+</td>
+<td style="text-align:right;">
+36756.59
+</td>
+<td style="text-align:right;">
+62659.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019
+</td>
+<td style="text-align:right;">
+3201
+</td>
+<td style="text-align:right;">
+6615.6
+</td>
+<td style="text-align:right;">
+9812.75
+</td>
+<td style="text-align:right;">
+17243.0
+</td>
+<td style="text-align:right;">
+36470.50
+</td>
+<td style="text-align:right;">
+87146.9
+</td>
+<td style="text-align:right;">
+492967
+</td>
+<td style="text-align:right;">
+36819.25
+</td>
+<td style="text-align:right;">
+63114.77
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="defining-new-variables" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Defining New Variables<a class="anchor" aria-label="anchor" href="#defining-new-variables"><i class="fas fa-link"></i></a>
+</h2>
+<p>How about if we don’t want to calculate summary statistics within a group, but just want to calculate a new variable from each observation? Consider if we had unemployed and labor force levels but did not have unemployment rate, how could we go about calculating it with mutate?</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">indiana</span><span class="op">&lt;-</span>                                                                <span class="co"># 1  # 1</span>
+  <span class="va">indiana</span> <span class="op">%&gt;%</span>                                                            <span class="co"># 2  # 2</span>
+  <span class="fu">mutate</span><span class="op">(</span>unemp_rate_calc<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">(</span><span class="va">Unemployed</span><span class="op">/</span><span class="va">Labor_force</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span>, digits<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 3  # 3</span></code></pre></div>
+<p>Note since we are defining our new data frame as indiana, the one we are manipulating, we are in this case overwriting the indiana data.frame. Since the unemployment rate in our file was listed as percent and rounded to the nearest tenth, I did the same for our calculated. (digits=1 means one decimal place)</p>
+<p>Now let’s compare the first rows of the given unemployment rate with the one we just calculated.</p>
+<pre><code>## # A tibble: 6 x 2
+##   Unemp_rate unemp_rate_calc
+##        &lt;dbl&gt;           &lt;dbl&gt;
+## 1        6.5             6.5
+## 2        5.1             5.1
+## 3        4.8             4.8
+## 4        3.4             3.4
+## 5        9.2             9.2
+## 6        2.4             2.4</code></pre>
+</div>
+<div id="dropping-variables" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Dropping Variables<a class="anchor" aria-label="anchor" href="#dropping-variables"><i class="fas fa-link"></i></a>
+</h2>
+<p>How can we go about dropping or keeping certain variables?</p>
+<p>Say we wanted to drop the unemp_rate_calc, Labor_force, and Employed?</p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">temp</span><span class="op">&lt;-</span>                                                 <span class="co"># 1  # 1</span>
+  <span class="va">indiana</span> <span class="op">%&gt;%</span>                                          <span class="co"># 2  # 2</span>
+  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">unemp_rate_calc</span>, <span class="va">Labor_force</span>,  <span class="va">Employed</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 3  # 3</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>                                             <span class="co"># 4  # 4</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 7
+##   LAUS_code    State_fips County_fips County_name    Year  Unemployed Unemp_rate
+##   &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 CN180010000~ 18         001         Adams County,~ 1990         998        6.5
+## 2 CN180030000~ 18         003         Allen County,~ 1990        8317        5.1
+## 3 CN180050000~ 18         005         Bartholomew C~ 1990        1632        4.8
+## 4 CN180070000~ 18         007         Benton County~ 1990         156        3.4
+## 5 CN180090000~ 18         009         Blackford Cou~ 1990         643        9.2
+## 6 CN180110000~ 18         011         Boone County,~ 1990         483        2.4</code></pre>
+<p>Now what if we wanted to keep just State_fips, County_fips, Year, and Unemp_rate?</p>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">temp</span><span class="op">&lt;-</span>                                                  <span class="co"># 1  # 1</span>
+  <span class="va">indiana</span> <span class="op">%&gt;%</span>                                           <span class="co"># 2  # 2</span>
+  <span class="fu">select</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">State_fips</span>, <span class="va">County_fips</span>, <span class="va">Year</span>, <span class="va">Unemp_rate</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 3  # 3</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>                                              <span class="co"># 4  # 4</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   State_fips County_fips Year  Unemp_rate
+##   &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt;
+## 1 18         001         1990         6.5
+## 2 18         003         1990         5.1
+## 3 18         005         1990         4.8
+## 4 18         007         1990         3.4
+## 5 18         009         1990         9.2
+## 6 18         011         1990         2.4</code></pre>
+<p>That is if we include the “-” before our variables, we are telling dplyr through our select argument to drop the variables we list. While if we don’t have the “-,” we are telling dplyr to keep only these variables.</p>
+</div>
+<div id="merging-datasets" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Merging Datasets<a class="anchor" aria-label="anchor" href="#merging-datasets"><i class="fas fa-link"></i></a>
+</h2>
+<p>What if we have 2 data sets, both county level. How could we combine them?</p>
+<div id="poverty-estimates" class="section level3" number="3.6.1">
+<h3>
+<span class="header-section-number">3.6.1</span> Poverty Estimates<a class="anchor" aria-label="anchor" href="#poverty-estimates"><i class="fas fa-link"></i></a>
+</h3>
+<p>We will be merging poverty estimates for the US counties in 2019. A table prepared by the USDA can be found on <a href="https://www.ers.usda.gov/data-products/county-level-data-sets/download-data/">their website here.</a> Let’s download this and put it into our original_data folder. Now let’s open it and see what the data looks like. One of the first things we can notice is the first 2 lines, United States and Alabama. That is there is county and state level observations in addition to the county level ones. We need to keep this in mind before we merge with our unemployment data.</p>
+<p>Try to figure out how to read this data into R by yourself. If you need to review, go back to <a href="https://jmwestenberg.github.io/courses/rcourse/lesson1/lesson1_04/">Downloading/Reading Data</a>. Remember using R Studio to assist with this is probably the simplest way until we get very comfortable with the commands.</p>
+<p>Here is the command I use for it:</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">PovertyEstimates</span> <span class="op">&lt;-</span>                                             <span class="co"># 1  # 1</span>
+  <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">folder_raw_data</span>, <span class="st">"/PovertyEstimates.xls"</span><span class="op">)</span>,  <span class="co"># 2  # 2</span>
+  skip <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>                                                     <span class="co"># 3  # 3</span></code></pre></div>
+<p>Make sure we also have our county unemployment data read in. We can observe both of these data.frames now. The way I would clean this data is the following (of course depends on the question/results you are trying to obtain):</p>
+<ul>
+<li>unemployment data:
+<ol style="list-style-type: decimal">
+<li>restrict to 2019 data (as our other county data is just 2019)</li>
+<li>Drop Year variable (as we only have one year now)</li>
+<li>Drop Puerto Rico (State FIPS 72)</li>
+<li>combine state_fips and county_fips into a FIPStxt variable (this is a variable in our poverty data which we will later be using as an ID to merge data on.)</li>
+</ol>
+</li>
+<li>poverty data:
+<ol style="list-style-type: decimal">
+<li>filter out state/country level observations, leaving just county level.</li>
+</ol>
+</li>
+</ul>
+<p>Here is the code I use for this:</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">unem_2019</span><span class="op">&lt;-</span><span class="va">county_data</span> <span class="op">%&gt;%</span>                                                            <span class="co"># 1  # 1</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Year</span><span class="op">==</span><span class="fl">2019</span>, <span class="va">State_fips</span><span class="op">!=</span><span class="fl">72</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co">#restrict sample to only year 2019, drop PR  # 2  # 2</span>
+  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">Year</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co">#drop the variable Year                                           # 3  # 3</span>
+  <span class="fu">mutate</span><span class="op">(</span>FIPStxt<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">State_fips</span>, <span class="va">County_fips</span><span class="op">)</span><span class="op">)</span> <span class="co">#Create variable to merge on        # 4  # 4</span>
+                                                                                      <span class="co"># 5  # 5</span>
+<span class="va">pov_2019</span> <span class="op">&lt;-</span> <span class="va">PovertyEstimates</span> <span class="op">%&gt;%</span>                                                      <span class="co"># 6  # 6</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span><span class="op">(</span><span class="va">FIPStxt</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">FIPStxt</span><span class="op">)</span><span class="op">-</span><span class="fl">2</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">FIPStxt</span><span class="op">)</span><span class="op">)</span><span class="op">!=</span><span class="st">"000"</span><span class="op">)</span>          <span class="co"># 7  # 7</span></code></pre></div>
+<p>Now if we observe both data frames we are left with what we want to merge. We have defined a variable FIPStxt which we would like to join observations on. That is for a given FIPStxt ID in our unemployment data, we would like to find the row with that FIPStxt ID in our poverty data, then add the variables in the poverty data to our unemployment data. Then do this for all iterations of our FIPStxt ID.</p>
+<p>There are join commands for this in the dplyr package. The clearest join command is full_join. This matches data frames based on common variable names (or defined variable names to match on.) I print the first 3 rows below.</p>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">clean_full</span><span class="op">&lt;-</span>                         <span class="co"># 1  # 1</span>
+  <span class="va">unem_2019</span> <span class="op">%&gt;%</span> <span class="fu">full_join</span><span class="op">(</span><span class="va">pov_2019</span><span class="op">)</span>  <span class="co"># 2  # 2</span></code></pre></div>
+<pre><code>## Joining, by = "FIPStxt"</code></pre>
+<div style="border: 1px solid #ddd; padding: 5px; ">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+LAUS_code
+</th>
+<th style="text-align:left;">
+State_fips
+</th>
+<th style="text-align:left;">
+County_fips
+</th>
+<th style="text-align:left;">
+County_name
+</th>
+<th style="text-align:right;">
+Labor_force
+</th>
+<th style="text-align:right;">
+Employed
+</th>
+<th style="text-align:right;">
+Unemployed
+</th>
+<th style="text-align:right;">
+Unemp_rate
+</th>
+<th style="text-align:left;">
+FIPStxt
+</th>
+<th style="text-align:left;">
+Stabr
+</th>
+<th style="text-align:left;">
+Area_name
+</th>
+<th style="text-align:right;">
+Rural-urban_Continuum_Code_2003
+</th>
+<th style="text-align:right;">
+Urban_Influence_Code_2003
+</th>
+<th style="text-align:right;">
+Rural-urban_Continuum_Code_2013
+</th>
+<th style="text-align:right;">
+Urban_Influence_Code_2013
+</th>
+<th style="text-align:right;">
+POVALL_2019
+</th>
+<th style="text-align:right;">
+CI90LBALL_2019
+</th>
+<th style="text-align:right;">
+CI90UBALL_2019
+</th>
+<th style="text-align:right;">
+PCTPOVALL_2019
+</th>
+<th style="text-align:right;">
+CI90LBALLP_2019
+</th>
+<th style="text-align:right;">
+CI90UBALLP_2019
+</th>
+<th style="text-align:right;">
+POV017_2019
+</th>
+<th style="text-align:right;">
+CI90LB017_2019
+</th>
+<th style="text-align:right;">
+CI90UB017_2019
+</th>
+<th style="text-align:right;">
+PCTPOV017_2019
+</th>
+<th style="text-align:right;">
+CI90LB017P_2019
+</th>
+<th style="text-align:right;">
+CI90UB017P_2019
+</th>
+<th style="text-align:right;">
+POV517_2019
+</th>
+<th style="text-align:right;">
+CI90LB517_2019
+</th>
+<th style="text-align:right;">
+CI90UB517_2019
+</th>
+<th style="text-align:right;">
+PCTPOV517_2019
+</th>
+<th style="text-align:right;">
+CI90LB517P_2019
+</th>
+<th style="text-align:right;">
+CI90UB517P_2019
+</th>
+<th style="text-align:right;">
+MEDHHINC_2019
+</th>
+<th style="text-align:right;">
+CI90LBINC_2019
+</th>
+<th style="text-align:right;">
+CI90UBINC_2019
+</th>
+<th style="text-align:right;">
+POV04_2019
+</th>
+<th style="text-align:right;">
+CI90LB04_2019
+</th>
+<th style="text-align:right;">
+CI90UB04_2019
+</th>
+<th style="text-align:right;">
+PCTPOV04_2019
+</th>
+<th style="text-align:right;">
+CI90LB04P_2019
+</th>
+<th style="text-align:right;">
+CI90UB04P_2019
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CN0100100000000
+</td>
+<td style="text-align:left;">
+01
+</td>
+<td style="text-align:left;">
+001
+</td>
+<td style="text-align:left;">
+Autauga County, AL
+</td>
+<td style="text-align:right;">
+26172
+</td>
+<td style="text-align:right;">
+25458
+</td>
+<td style="text-align:right;">
+714
+</td>
+<td style="text-align:right;">
+2.7
+</td>
+<td style="text-align:left;">
+01001
+</td>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:left;">
+Autauga County
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6723
+</td>
+<td style="text-align:right;">
+5517
+</td>
+<td style="text-align:right;">
+7929
+</td>
+<td style="text-align:right;">
+12.1
+</td>
+<td style="text-align:right;">
+9.9
+</td>
+<td style="text-align:right;">
+14.3
+</td>
+<td style="text-align:right;">
+2040
+</td>
+<td style="text-align:right;">
+1472
+</td>
+<td style="text-align:right;">
+2608
+</td>
+<td style="text-align:right;">
+15.9
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+20.3
+</td>
+<td style="text-align:right;">
+1376
+</td>
+<td style="text-align:right;">
+902
+</td>
+<td style="text-align:right;">
+1850
+</td>
+<td style="text-align:right;">
+14.4
+</td>
+<td style="text-align:right;">
+9.4
+</td>
+<td style="text-align:right;">
+19.4
+</td>
+<td style="text-align:right;">
+58233
+</td>
+<td style="text-align:right;">
+52517
+</td>
+<td style="text-align:right;">
+63949
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CN0100300000000
+</td>
+<td style="text-align:left;">
+01
+</td>
+<td style="text-align:left;">
+003
+</td>
+<td style="text-align:left;">
+Baldwin County, AL
+</td>
+<td style="text-align:right;">
+97328
+</td>
+<td style="text-align:right;">
+94675
+</td>
+<td style="text-align:right;">
+2653
+</td>
+<td style="text-align:right;">
+2.7
+</td>
+<td style="text-align:left;">
+01003
+</td>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:left;">
+Baldwin County
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+22360
+</td>
+<td style="text-align:right;">
+18541
+</td>
+<td style="text-align:right;">
+26179
+</td>
+<td style="text-align:right;">
+10.1
+</td>
+<td style="text-align:right;">
+8.4
+</td>
+<td style="text-align:right;">
+11.8
+</td>
+<td style="text-align:right;">
+6323
+</td>
+<td style="text-align:right;">
+4521
+</td>
+<td style="text-align:right;">
+8125
+</td>
+<td style="text-align:right;">
+13.5
+</td>
+<td style="text-align:right;">
+9.6
+</td>
+<td style="text-align:right;">
+17.4
+</td>
+<td style="text-align:right;">
+4641
+</td>
+<td style="text-align:right;">
+3295
+</td>
+<td style="text-align:right;">
+5987
+</td>
+<td style="text-align:right;">
+13.3
+</td>
+<td style="text-align:right;">
+9.4
+</td>
+<td style="text-align:right;">
+17.2
+</td>
+<td style="text-align:right;">
+59871
+</td>
+<td style="text-align:right;">
+54593
+</td>
+<td style="text-align:right;">
+65149
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CN0100500000000
+</td>
+<td style="text-align:left;">
+01
+</td>
+<td style="text-align:left;">
+005
+</td>
+<td style="text-align:left;">
+Barbour County, AL
+</td>
+<td style="text-align:right;">
+8537
+</td>
+<td style="text-align:right;">
+8213
+</td>
+<td style="text-align:right;">
+324
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+<td style="text-align:left;">
+01005
+</td>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:left;">
+Barbour County
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+5909
+</td>
+<td style="text-align:right;">
+4787
+</td>
+<td style="text-align:right;">
+7031
+</td>
+<td style="text-align:right;">
+27.1
+</td>
+<td style="text-align:right;">
+22.0
+</td>
+<td style="text-align:right;">
+32.2
+</td>
+<td style="text-align:right;">
+2050
+</td>
+<td style="text-align:right;">
+1560
+</td>
+<td style="text-align:right;">
+2540
+</td>
+<td style="text-align:right;">
+41.0
+</td>
+<td style="text-align:right;">
+31.2
+</td>
+<td style="text-align:right;">
+50.8
+</td>
+<td style="text-align:right;">
+1468
+</td>
+<td style="text-align:right;">
+1114
+</td>
+<td style="text-align:right;">
+1822
+</td>
+<td style="text-align:right;">
+39.5
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+49.0
+</td>
+<td style="text-align:right;">
+35972
+</td>
+<td style="text-align:right;">
+31822
+</td>
+<td style="text-align:right;">
+40122
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="left_join" class="section level3" number="3.6.2">
+<h3>
+<span class="header-section-number">3.6.2</span> left_join<a class="anchor" aria-label="anchor" href="#left_join"><i class="fas fa-link"></i></a>
+</h3>
+<p>While the above full_join command is probably the ‘safest’ route since it prints all of the variables and rows of both data frames, knowing more about other joins can save us some time.</p>
+<p>For example, consider above when we first loaded in our poverty data. It had observations at state and country wide levels in addition to the county level data we wanted. We would ideally want a command that took in the county unemployment data, matched the poverty data based on FIPStxt, and then just exclude any extras from the poverty data. We can do this with left (or right) join.</p>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">unclean_left</span><span class="op">&lt;-</span>                               <span class="co"># 1  # 1</span>
+  <span class="va">unem_2019</span> <span class="op">%&gt;%</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">PovertyEstimates</span><span class="op">)</span>  <span class="co"># 2  # 2</span></code></pre></div>
+<pre><code>## Joining, by = "FIPStxt"</code></pre>
+<div style="border: 1px solid #ddd; padding: 5px; ">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+LAUS_code
+</th>
+<th style="text-align:left;">
+State_fips
+</th>
+<th style="text-align:left;">
+County_fips
+</th>
+<th style="text-align:left;">
+County_name
+</th>
+<th style="text-align:right;">
+Labor_force
+</th>
+<th style="text-align:right;">
+Employed
+</th>
+<th style="text-align:right;">
+Unemployed
+</th>
+<th style="text-align:right;">
+Unemp_rate
+</th>
+<th style="text-align:left;">
+FIPStxt
+</th>
+<th style="text-align:left;">
+Stabr
+</th>
+<th style="text-align:left;">
+Area_name
+</th>
+<th style="text-align:right;">
+Rural-urban_Continuum_Code_2003
+</th>
+<th style="text-align:right;">
+Urban_Influence_Code_2003
+</th>
+<th style="text-align:right;">
+Rural-urban_Continuum_Code_2013
+</th>
+<th style="text-align:right;">
+Urban_Influence_Code_2013
+</th>
+<th style="text-align:right;">
+POVALL_2019
+</th>
+<th style="text-align:right;">
+CI90LBALL_2019
+</th>
+<th style="text-align:right;">
+CI90UBALL_2019
+</th>
+<th style="text-align:right;">
+PCTPOVALL_2019
+</th>
+<th style="text-align:right;">
+CI90LBALLP_2019
+</th>
+<th style="text-align:right;">
+CI90UBALLP_2019
+</th>
+<th style="text-align:right;">
+POV017_2019
+</th>
+<th style="text-align:right;">
+CI90LB017_2019
+</th>
+<th style="text-align:right;">
+CI90UB017_2019
+</th>
+<th style="text-align:right;">
+PCTPOV017_2019
+</th>
+<th style="text-align:right;">
+CI90LB017P_2019
+</th>
+<th style="text-align:right;">
+CI90UB017P_2019
+</th>
+<th style="text-align:right;">
+POV517_2019
+</th>
+<th style="text-align:right;">
+CI90LB517_2019
+</th>
+<th style="text-align:right;">
+CI90UB517_2019
+</th>
+<th style="text-align:right;">
+PCTPOV517_2019
+</th>
+<th style="text-align:right;">
+CI90LB517P_2019
+</th>
+<th style="text-align:right;">
+CI90UB517P_2019
+</th>
+<th style="text-align:right;">
+MEDHHINC_2019
+</th>
+<th style="text-align:right;">
+CI90LBINC_2019
+</th>
+<th style="text-align:right;">
+CI90UBINC_2019
+</th>
+<th style="text-align:right;">
+POV04_2019
+</th>
+<th style="text-align:right;">
+CI90LB04_2019
+</th>
+<th style="text-align:right;">
+CI90UB04_2019
+</th>
+<th style="text-align:right;">
+PCTPOV04_2019
+</th>
+<th style="text-align:right;">
+CI90LB04P_2019
+</th>
+<th style="text-align:right;">
+CI90UB04P_2019
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CN0100100000000
+</td>
+<td style="text-align:left;">
+01
+</td>
+<td style="text-align:left;">
+001
+</td>
+<td style="text-align:left;">
+Autauga County, AL
+</td>
+<td style="text-align:right;">
+26172
+</td>
+<td style="text-align:right;">
+25458
+</td>
+<td style="text-align:right;">
+714
+</td>
+<td style="text-align:right;">
+2.7
+</td>
+<td style="text-align:left;">
+01001
+</td>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:left;">
+Autauga County
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6723
+</td>
+<td style="text-align:right;">
+5517
+</td>
+<td style="text-align:right;">
+7929
+</td>
+<td style="text-align:right;">
+12.1
+</td>
+<td style="text-align:right;">
+9.9
+</td>
+<td style="text-align:right;">
+14.3
+</td>
+<td style="text-align:right;">
+2040
+</td>
+<td style="text-align:right;">
+1472
+</td>
+<td style="text-align:right;">
+2608
+</td>
+<td style="text-align:right;">
+15.9
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+20.3
+</td>
+<td style="text-align:right;">
+1376
+</td>
+<td style="text-align:right;">
+902
+</td>
+<td style="text-align:right;">
+1850
+</td>
+<td style="text-align:right;">
+14.4
+</td>
+<td style="text-align:right;">
+9.4
+</td>
+<td style="text-align:right;">
+19.4
+</td>
+<td style="text-align:right;">
+58233
+</td>
+<td style="text-align:right;">
+52517
+</td>
+<td style="text-align:right;">
+63949
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CN0100300000000
+</td>
+<td style="text-align:left;">
+01
+</td>
+<td style="text-align:left;">
+003
+</td>
+<td style="text-align:left;">
+Baldwin County, AL
+</td>
+<td style="text-align:right;">
+97328
+</td>
+<td style="text-align:right;">
+94675
+</td>
+<td style="text-align:right;">
+2653
+</td>
+<td style="text-align:right;">
+2.7
+</td>
+<td style="text-align:left;">
+01003
+</td>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:left;">
+Baldwin County
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+22360
+</td>
+<td style="text-align:right;">
+18541
+</td>
+<td style="text-align:right;">
+26179
+</td>
+<td style="text-align:right;">
+10.1
+</td>
+<td style="text-align:right;">
+8.4
+</td>
+<td style="text-align:right;">
+11.8
+</td>
+<td style="text-align:right;">
+6323
+</td>
+<td style="text-align:right;">
+4521
+</td>
+<td style="text-align:right;">
+8125
+</td>
+<td style="text-align:right;">
+13.5
+</td>
+<td style="text-align:right;">
+9.6
+</td>
+<td style="text-align:right;">
+17.4
+</td>
+<td style="text-align:right;">
+4641
+</td>
+<td style="text-align:right;">
+3295
+</td>
+<td style="text-align:right;">
+5987
+</td>
+<td style="text-align:right;">
+13.3
+</td>
+<td style="text-align:right;">
+9.4
+</td>
+<td style="text-align:right;">
+17.2
+</td>
+<td style="text-align:right;">
+59871
+</td>
+<td style="text-align:right;">
+54593
+</td>
+<td style="text-align:right;">
+65149
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CN0100500000000
+</td>
+<td style="text-align:left;">
+01
+</td>
+<td style="text-align:left;">
+005
+</td>
+<td style="text-align:left;">
+Barbour County, AL
+</td>
+<td style="text-align:right;">
+8537
+</td>
+<td style="text-align:right;">
+8213
+</td>
+<td style="text-align:right;">
+324
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+<td style="text-align:left;">
+01005
+</td>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:left;">
+Barbour County
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+5909
+</td>
+<td style="text-align:right;">
+4787
+</td>
+<td style="text-align:right;">
+7031
+</td>
+<td style="text-align:right;">
+27.1
+</td>
+<td style="text-align:right;">
+22.0
+</td>
+<td style="text-align:right;">
+32.2
+</td>
+<td style="text-align:right;">
+2050
+</td>
+<td style="text-align:right;">
+1560
+</td>
+<td style="text-align:right;">
+2540
+</td>
+<td style="text-align:right;">
+41.0
+</td>
+<td style="text-align:right;">
+31.2
+</td>
+<td style="text-align:right;">
+50.8
+</td>
+<td style="text-align:right;">
+1468
+</td>
+<td style="text-align:right;">
+1114
+</td>
+<td style="text-align:right;">
+1822
+</td>
+<td style="text-align:right;">
+39.5
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+49.0
+</td>
+<td style="text-align:right;">
+35972
+</td>
+<td style="text-align:right;">
+31822
+</td>
+<td style="text-align:right;">
+40122
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>In this case we are starting with our unemployment data, and then telling R to match all possible values by our common variable (FIPStxt here), then we don’t care about any poverty estimate observations that can’t be matched. However what about unemployment observations that can’t be? We simply fill these values with NA’s. For example, if we DON’T exclude Puerto Rico, it would be in our unemployment data, but not in our poverty data. Let’s see what happens:</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">unem_2019_pr</span><span class="op">&lt;-</span><span class="va">county_data</span> <span class="op">%&gt;%</span>                      <span class="co"># 1  # 1</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Year</span><span class="op">==</span><span class="fl">2019</span><span class="op">)</span> <span class="op">%&gt;%</span>                           <span class="co"># 2  # 2</span>
+  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">Year</span><span class="op">)</span> <span class="op">%&gt;%</span>                                <span class="co"># 3  # 3</span>
+  <span class="fu">mutate</span><span class="op">(</span>FIPStxt<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">State_fips</span>, <span class="va">County_fips</span><span class="op">)</span><span class="op">)</span>  <span class="co"># 4  # 4</span>
+<span class="va">pr</span><span class="op">&lt;-</span>                                               <span class="co"># 5  # 5</span>
+  <span class="va">unem_2019_pr</span> <span class="op">%&gt;%</span>                                 <span class="co"># 6  # 6</span>
+  <span class="fu">left_join</span><span class="op">(</span><span class="va">PovertyEstimates</span><span class="op">)</span> <span class="op">%&gt;%</span>                  <span class="co"># 7  # 7</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">State_fips</span><span class="op">==</span><span class="fl">72</span><span class="op">)</span>                           <span class="co"># 8  # 8</span></code></pre></div>
+<pre><code>## Joining, by = "FIPStxt"</code></pre>
+<div style="border: 1px solid #ddd; padding: 5px; ">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+LAUS_code
+</th>
+<th style="text-align:left;">
+State_fips
+</th>
+<th style="text-align:left;">
+County_fips
+</th>
+<th style="text-align:left;">
+County_name
+</th>
+<th style="text-align:right;">
+Labor_force
+</th>
+<th style="text-align:right;">
+Employed
+</th>
+<th style="text-align:right;">
+Unemployed
+</th>
+<th style="text-align:right;">
+Unemp_rate
+</th>
+<th style="text-align:left;">
+FIPStxt
+</th>
+<th style="text-align:left;">
+Stabr
+</th>
+<th style="text-align:left;">
+Area_name
+</th>
+<th style="text-align:right;">
+Rural-urban_Continuum_Code_2003
+</th>
+<th style="text-align:right;">
+Urban_Influence_Code_2003
+</th>
+<th style="text-align:right;">
+Rural-urban_Continuum_Code_2013
+</th>
+<th style="text-align:right;">
+Urban_Influence_Code_2013
+</th>
+<th style="text-align:right;">
+POVALL_2019
+</th>
+<th style="text-align:right;">
+CI90LBALL_2019
+</th>
+<th style="text-align:right;">
+CI90UBALL_2019
+</th>
+<th style="text-align:right;">
+PCTPOVALL_2019
+</th>
+<th style="text-align:right;">
+CI90LBALLP_2019
+</th>
+<th style="text-align:right;">
+CI90UBALLP_2019
+</th>
+<th style="text-align:right;">
+POV017_2019
+</th>
+<th style="text-align:right;">
+CI90LB017_2019
+</th>
+<th style="text-align:right;">
+CI90UB017_2019
+</th>
+<th style="text-align:right;">
+PCTPOV017_2019
+</th>
+<th style="text-align:right;">
+CI90LB017P_2019
+</th>
+<th style="text-align:right;">
+CI90UB017P_2019
+</th>
+<th style="text-align:right;">
+POV517_2019
+</th>
+<th style="text-align:right;">
+CI90LB517_2019
+</th>
+<th style="text-align:right;">
+CI90UB517_2019
+</th>
+<th style="text-align:right;">
+PCTPOV517_2019
+</th>
+<th style="text-align:right;">
+CI90LB517P_2019
+</th>
+<th style="text-align:right;">
+CI90UB517P_2019
+</th>
+<th style="text-align:right;">
+MEDHHINC_2019
+</th>
+<th style="text-align:right;">
+CI90LBINC_2019
+</th>
+<th style="text-align:right;">
+CI90UBINC_2019
+</th>
+<th style="text-align:right;">
+POV04_2019
+</th>
+<th style="text-align:right;">
+CI90LB04_2019
+</th>
+<th style="text-align:right;">
+CI90UB04_2019
+</th>
+<th style="text-align:right;">
+PCTPOV04_2019
+</th>
+<th style="text-align:right;">
+CI90LB04P_2019
+</th>
+<th style="text-align:right;">
+CI90UB04P_2019
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CN7200100000000
+</td>
+<td style="text-align:left;">
+72
+</td>
+<td style="text-align:left;">
+001
+</td>
+<td style="text-align:left;">
+Adjuntas Municipio, PR
+</td>
+<td style="text-align:right;">
+4115
+</td>
+<td style="text-align:right;">
+3485
+</td>
+<td style="text-align:right;">
+630
+</td>
+<td style="text-align:right;">
+15.3
+</td>
+<td style="text-align:left;">
+72001
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CN7200300000000
+</td>
+<td style="text-align:left;">
+72
+</td>
+<td style="text-align:left;">
+003
+</td>
+<td style="text-align:left;">
+Aguada Municipio, PR
+</td>
+<td style="text-align:right;">
+11743
+</td>
+<td style="text-align:right;">
+10553
+</td>
+<td style="text-align:right;">
+1190
+</td>
+<td style="text-align:right;">
+10.1
+</td>
+<td style="text-align:left;">
+72003
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CN7200500000000
+</td>
+<td style="text-align:left;">
+72
+</td>
+<td style="text-align:left;">
+005
+</td>
+<td style="text-align:left;">
+Aguadilla Municipio, PR
+</td>
+<td style="text-align:right;">
+14350
+</td>
+<td style="text-align:right;">
+12881
+</td>
+<td style="text-align:right;">
+1469
+</td>
+<td style="text-align:right;">
+10.2
+</td>
+<td style="text-align:left;">
+72005
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="additional-resources" class="section level3" number="3.6.3">
+<h3>
+<span class="header-section-number">3.6.3</span> Additional Resources<a class="anchor" aria-label="anchor" href="#additional-resources"><i class="fas fa-link"></i></a>
+</h3>
+<p>In addition to full and left join shown here, there is also inner join and right join. Details of these can be <a href="https://dplyr.tidyverse.org/reference/join.html">found here.</a></p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="intro.html"><span class="header-section-number">2</span> Introduction</a></div>
+<div class="next"><a href="exporting.html"><span class="header-section-number">4</span> Exporting Results</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tidyverse"><span class="header-section-number">3</span> Tidyverse</a></li>
+<li><a class="nav-link" href="#filtering-with-pipes"><span class="header-section-number">3.1</span> Filtering with Pipes</a></li>
+<li>
+<a class="nav-link" href="#plotting-data"><span class="header-section-number">3.2</span> Plotting Data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#scatter-plot-geom_point"><span class="header-section-number">3.2.1</span> Scatter plot (geom_point)</a></li></ul>
+</li>
+<li><a class="nav-link" href="#manipulating-within-groups"><span class="header-section-number">3.3</span> Manipulating within Groups</a></li>
+<li><a class="nav-link" href="#defining-new-variables"><span class="header-section-number">3.4</span> Defining New Variables</a></li>
+<li><a class="nav-link" href="#dropping-variables"><span class="header-section-number">3.5</span> Dropping Variables</a></li>
+<li>
+<a class="nav-link" href="#merging-datasets"><span class="header-section-number">3.6</span> Merging Datasets</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#poverty-estimates"><span class="header-section-number">3.6.1</span> Poverty Estimates</a></li>
+<li><a class="nav-link" href="#left_join"><span class="header-section-number">3.6.2</span> left_join</a></li>
+<li><a class="nav-link" href="#additional-resources"><span class="header-section-number">3.6.3</span> Additional Resources</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Introduction to Data Science in R</strong>" was written by Joseph M. Westenberg. It was last built on 2021-07-14.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
