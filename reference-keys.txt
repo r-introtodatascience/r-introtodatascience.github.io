@@ -25,3 +25,8 @@ additional-resources
 exporting
 saving-plots
 tables-to-latex
+GIS
+mit-election-data
+pollution-data
+bls-county-statistics
+combining-data

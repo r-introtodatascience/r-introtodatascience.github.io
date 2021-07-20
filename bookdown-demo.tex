@@ -138,7 +138,7 @@
 
 \title{Introduction to Data Science in R}
 \author{Joseph M. Westenberg}
-\date{2021-07-15}
+\date{2021-07-19}
 
 \begin{document}
 \maketitle
@@ -720,8 +720,8 @@ Tidyverse provides us with some useful tools for data manipulation and cleaning.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{indiana}\OtherTok{\textless{}{-}}                                    \CommentTok{\# 1  \# 1}
-\NormalTok{    unemp\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(State\_fips}\SpecialCharTok{==}\StringTok{"18"}\NormalTok{)  }\CommentTok{\# 2  \# 2}
+\NormalTok{indiana}\OtherTok{\textless{}{-}}                                    \CommentTok{\# 1}
+\NormalTok{    unemp\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(State\_fips}\SpecialCharTok{==}\StringTok{"18"}\NormalTok{)  }\CommentTok{\# 2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -729,7 +729,7 @@ What is going on in this line of code? Let's start with the second line. The ope
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unemp\_data}\OtherTok{\textless{}{-}}\NormalTok{unemp\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(State\_fips}\SpecialCharTok{==}\StringTok{"18"}\NormalTok{)  }\CommentTok{\# 1  \# 1}
+\NormalTok{unemp\_data}\OtherTok{\textless{}{-}}\NormalTok{unemp\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(State\_fips}\SpecialCharTok{==}\StringTok{"18"}\NormalTok{)  }\CommentTok{\# 1}
 \end{Highlighting}
 \end{Shaded}
 
@@ -742,17 +742,17 @@ As ggplot2 has so many options, we will just be barely skimming the surface in t
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(ggplot2)                                    }\CommentTok{\# 1  \# 1}
-                                                    \CommentTok{\# 2  \# 2}
-\NormalTok{indiana }\OtherTok{\textless{}{-}}\NormalTok{ unemp\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(State\_fips}\SpecialCharTok{==}\StringTok{"18"}\NormalTok{)  }\CommentTok{\# 3  \# 3}
+\FunctionTok{library}\NormalTok{(ggplot2)                                    }\CommentTok{\# 1}
+                                                    \CommentTok{\# 2}
+\NormalTok{indiana }\OtherTok{\textless{}{-}}\NormalTok{ unemp\_data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(State\_fips}\SpecialCharTok{==}\StringTok{"18"}\NormalTok{)  }\CommentTok{\# 3}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 1  \# 1}
-    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}     \CommentTok{\# 2  \# 2}
-  \FunctionTok{geom\_line}\NormalTok{()                                    }\CommentTok{\# 3  \# 3}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 1}
+    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}     \CommentTok{\# 2}
+  \FunctionTok{geom\_line}\NormalTok{()                                    }\CommentTok{\# 3}
 \end{Highlighting}
 \end{Shaded}
 
@@ -772,10 +772,10 @@ First thing after this plot, the legend is excessive. Let's just suppress it for
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 1  \# 1}
-    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}     \CommentTok{\# 2  \# 2}
-  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size=}\FloatTok{0.3}\NormalTok{)}\SpecialCharTok{+}                           \CommentTok{\# 3  \# 3}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{)                  }\CommentTok{\# 4  \# 4}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 1}
+    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}     \CommentTok{\# 2}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size=}\FloatTok{0.3}\NormalTok{)}\SpecialCharTok{+}                           \CommentTok{\# 3}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{)                  }\CommentTok{\# 4}
 \end{Highlighting}
 \end{Shaded}
 
@@ -785,12 +785,12 @@ This already is looking a lot better. But can we do something about the labels o
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 1  \# 1}
-    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}     \CommentTok{\# 2  \# 2}
-  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size=}\FloatTok{0.3}\NormalTok{)}\SpecialCharTok{+}                           \CommentTok{\# 3  \# 3}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{,                  }\CommentTok{\# 4  \# 4}
-    \AttributeTok{axis.text.x=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle=}\DecValTok{45}\NormalTok{)) }\SpecialCharTok{+}        \CommentTok{\# 5  \# 5}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Indiana Unemployment Rate by County\textquotesingle{}}\NormalTok{)    }\CommentTok{\# 6  \# 6}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 1}
+    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}     \CommentTok{\# 2}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size=}\FloatTok{0.3}\NormalTok{)}\SpecialCharTok{+}                           \CommentTok{\# 3}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{,                  }\CommentTok{\# 4}
+    \AttributeTok{axis.text.x=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle=}\DecValTok{45}\NormalTok{)) }\SpecialCharTok{+}        \CommentTok{\# 5}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Indiana Unemployment Rate by County\textquotesingle{}}\NormalTok{)    }\CommentTok{\# 6}
 \end{Highlighting}
 \end{Shaded}
 
@@ -800,17 +800,17 @@ Now we're getting somewhere! But what if we want to emphasize the county Bloomin
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{monroecty}\OtherTok{\textless{}{-}}\NormalTok{indiana }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(County\_fips}\SpecialCharTok{==}\StringTok{"105"}\NormalTok{)       }\CommentTok{\# 1   \# 1}
-                                                        \CommentTok{\# 2   \# 2}
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,          }\CommentTok{\# 3   \# 3}
-    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}            \CommentTok{\# 4   \# 4}
-  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size=}\FloatTok{0.3}\NormalTok{)}\SpecialCharTok{+}                                  \CommentTok{\# 5   \# 5}
-  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data=}\NormalTok{monroecty, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 6   \# 6}
-    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\DecValTok{1}\NormalTok{),                       }\CommentTok{\# 7   \# 7}
-    \AttributeTok{size=}\FloatTok{0.6}\NormalTok{, }\AttributeTok{colour=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}                         \CommentTok{\# 8   \# 8}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{,                         }\CommentTok{\# 9   \# 9}
-    \AttributeTok{axis.text.x=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle=}\DecValTok{45}\NormalTok{)) }\SpecialCharTok{+}              \CommentTok{\# 10  \# 10}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Indiana Unemployment Rate by County\textquotesingle{}}\NormalTok{)          }\CommentTok{\# 11  \# 11}
+\NormalTok{monroecty}\OtherTok{\textless{}{-}}\NormalTok{indiana }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(County\_fips}\SpecialCharTok{==}\StringTok{"105"}\NormalTok{)       }\CommentTok{\# 1}
+                                                        \CommentTok{\# 2}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,          }\CommentTok{\# 3}
+    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}            \CommentTok{\# 4}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size=}\FloatTok{0.3}\NormalTok{)}\SpecialCharTok{+}                                  \CommentTok{\# 5}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data=}\NormalTok{monroecty, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 6}
+    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\DecValTok{1}\NormalTok{),                       }\CommentTok{\# 7}
+    \AttributeTok{size=}\FloatTok{0.6}\NormalTok{, }\AttributeTok{colour=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}                         \CommentTok{\# 8}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{,                         }\CommentTok{\# 9}
+    \AttributeTok{axis.text.x=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle=}\DecValTok{45}\NormalTok{)) }\SpecialCharTok{+}              \CommentTok{\# 10}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Indiana Unemployment Rate by County\textquotesingle{}}\NormalTok{)          }\CommentTok{\# 11}
 \end{Highlighting}
 \end{Shaded}
 
@@ -820,15 +820,15 @@ We can make the black line for Monroe County `pop' a bit more too. Let's change 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,          }\CommentTok{\# 1  \# 1}
-    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}            \CommentTok{\# 2  \# 2}
-  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size=}\FloatTok{0.3}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.5}\NormalTok{)}\SpecialCharTok{+}                       \CommentTok{\# 3  \# 3}
-  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data=}\NormalTok{monroecty, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 4  \# 4}
-    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\DecValTok{1}\NormalTok{),                       }\CommentTok{\# 5  \# 5}
-    \AttributeTok{size=}\FloatTok{0.6}\NormalTok{, }\AttributeTok{colour=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}                         \CommentTok{\# 6  \# 6}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{,                         }\CommentTok{\# 7  \# 7}
-    \AttributeTok{axis.text.x=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle=}\DecValTok{45}\NormalTok{)) }\SpecialCharTok{+}               \CommentTok{\# 8  \# 8}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Indiana Unemployment Rate by County\textquotesingle{}}\NormalTok{)           }\CommentTok{\# 9  \# 9}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,          }\CommentTok{\# 1}
+    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}            \CommentTok{\# 2}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size=}\FloatTok{0.3}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.5}\NormalTok{)}\SpecialCharTok{+}                       \CommentTok{\# 3}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data=}\NormalTok{monroecty, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 4}
+    \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\DecValTok{1}\NormalTok{),                       }\CommentTok{\# 5}
+    \AttributeTok{size=}\FloatTok{0.6}\NormalTok{, }\AttributeTok{colour=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}                         \CommentTok{\# 6}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{,                         }\CommentTok{\# 7}
+    \AttributeTok{axis.text.x=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle=}\DecValTok{45}\NormalTok{)) }\SpecialCharTok{+}               \CommentTok{\# 8}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Indiana Unemployment Rate by County\textquotesingle{}}\NormalTok{)           }\CommentTok{\# 9}
 \end{Highlighting}
 \end{Shaded}
 
@@ -841,9 +841,9 @@ What if we want points to insteaed of lines for each year?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 1  \# 1}
-  \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}       \CommentTok{\# 2  \# 2}
-  \FunctionTok{geom\_point}\NormalTok{()                                   }\CommentTok{\# 3  \# 3}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{indiana, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year, }\AttributeTok{y=}\NormalTok{Unemp\_rate,   }\CommentTok{\# 1}
+  \AttributeTok{colour=}\NormalTok{County\_fips, }\AttributeTok{group=}\NormalTok{County\_fips))}\SpecialCharTok{+}       \CommentTok{\# 2}
+  \FunctionTok{geom\_point}\NormalTok{()                                   }\CommentTok{\# 3}
 \end{Highlighting}
 \end{Shaded}
 
@@ -856,8 +856,8 @@ Our next chunk of code gets a bit more complex, let's take it peice by peice tho
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  indiana }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(Year) }\SpecialCharTok{\%\textgreater{}\%}          \CommentTok{\# 1  \# 1}
-    \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Average=}\FunctionTok{mean}\NormalTok{(Labor\_force))  }\CommentTok{\# 2  \# 2}
+\NormalTok{  indiana }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(Year) }\SpecialCharTok{\%\textgreater{}\%}          \CommentTok{\# 1}
+    \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Average=}\FunctionTok{mean}\NormalTok{(Labor\_force))  }\CommentTok{\# 2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -933,9 +933,9 @@ This group\_by command paired with summarise is quite useful. For example going 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unemp\_data }\SpecialCharTok{\%\textgreater{}\%}                          \CommentTok{\# 1  \# 1}
-  \FunctionTok{group\_by}\NormalTok{(Year, State\_fips) }\SpecialCharTok{\%\textgreater{}\%}        \CommentTok{\# 2  \# 2}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Average=}\FunctionTok{mean}\NormalTok{(Labor\_force))  }\CommentTok{\# 3  \# 3}
+\NormalTok{unemp\_data }\SpecialCharTok{\%\textgreater{}\%}                          \CommentTok{\# 1}
+  \FunctionTok{group\_by}\NormalTok{(Year, State\_fips) }\SpecialCharTok{\%\textgreater{}\%}        \CommentTok{\# 2}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Average=}\FunctionTok{mean}\NormalTok{(Labor\_force))  }\CommentTok{\# 3}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1153,17 +1153,17 @@ Average is just one statistic we may want to calculate, how about percentiles, m
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{indiana\_laborforce}\OtherTok{\textless{}{-}}                       \CommentTok{\# 1   \# 1}
-\NormalTok{  indiana }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(Year) }\SpecialCharTok{\%\textgreater{}\%}           \CommentTok{\# 2   \# 2}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Min=}\FunctionTok{min}\NormalTok{(Labor\_force),          }\CommentTok{\# 3   \# 3}
-    \AttributeTok{p10th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{)),   }\CommentTok{\# 4   \# 4}
-    \AttributeTok{p25th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{)),  }\CommentTok{\# 5   \# 5}
-    \AttributeTok{p50th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{)),   }\CommentTok{\# 6   \# 6}
-    \AttributeTok{p75th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{)),  }\CommentTok{\# 7   \# 7}
-    \AttributeTok{p90th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.9}\NormalTok{)),   }\CommentTok{\# 8   \# 8}
-    \AttributeTok{Max=}\FunctionTok{max}\NormalTok{(Labor\_force),                  }\CommentTok{\# 9   \# 9}
-    \AttributeTok{Average=}\FunctionTok{mean}\NormalTok{(Labor\_force),            }\CommentTok{\# 10  \# 10}
-    \AttributeTok{StDev=}\FunctionTok{sd}\NormalTok{(Labor\_force))                }\CommentTok{\# 11  \# 11}
+\NormalTok{indiana\_laborforce}\OtherTok{\textless{}{-}}                       \CommentTok{\# 1}
+\NormalTok{  indiana }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(Year) }\SpecialCharTok{\%\textgreater{}\%}           \CommentTok{\# 2}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Min=}\FunctionTok{min}\NormalTok{(Labor\_force),          }\CommentTok{\# 3}
+    \AttributeTok{p10th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{)),   }\CommentTok{\# 4}
+    \AttributeTok{p25th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{)),  }\CommentTok{\# 5}
+    \AttributeTok{p50th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{)),   }\CommentTok{\# 6}
+    \AttributeTok{p75th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{)),  }\CommentTok{\# 7}
+    \AttributeTok{p90th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.9}\NormalTok{)),   }\CommentTok{\# 8}
+    \AttributeTok{Max=}\FunctionTok{max}\NormalTok{(Labor\_force),                  }\CommentTok{\# 9}
+    \AttributeTok{Average=}\FunctionTok{mean}\NormalTok{(Labor\_force),            }\CommentTok{\# 10}
+    \AttributeTok{StDev=}\FunctionTok{sd}\NormalTok{(Labor\_force))                }\CommentTok{\# 11}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1240,9 +1240,9 @@ How about if we don't want to calculate summary statistics within a group, but j
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{indiana}\OtherTok{\textless{}{-}}                                                                \CommentTok{\# 1  \# 1}
-\NormalTok{  indiana }\SpecialCharTok{\%\textgreater{}\%}                                                            \CommentTok{\# 2  \# 2}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{unemp\_rate\_calc=}\FunctionTok{round}\NormalTok{((Unemployed}\SpecialCharTok{/}\NormalTok{Labor\_force)}\SpecialCharTok{*}\DecValTok{100}\NormalTok{, }\AttributeTok{digits=}\DecValTok{1}\NormalTok{))  }\CommentTok{\# 3  \# 3}
+\NormalTok{indiana}\OtherTok{\textless{}{-}}                                                                \CommentTok{\# 1}
+\NormalTok{  indiana }\SpecialCharTok{\%\textgreater{}\%}                                                            \CommentTok{\# 2}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{unemp\_rate\_calc=}\FunctionTok{round}\NormalTok{((Unemployed}\SpecialCharTok{/}\NormalTok{Labor\_force)}\SpecialCharTok{*}\DecValTok{100}\NormalTok{, }\AttributeTok{digits=}\DecValTok{1}\NormalTok{))  }\CommentTok{\# 3}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1271,10 +1271,10 @@ Say we wanted to drop the unemp\_rate\_calc, Labor\_force, and Employed?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{temp}\OtherTok{\textless{}{-}}                                                 \CommentTok{\# 1  \# 1}
-\NormalTok{  indiana }\SpecialCharTok{\%\textgreater{}\%}                                          \CommentTok{\# 2  \# 2}
-  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(unemp\_rate\_calc, Labor\_force,  Employed))  }\CommentTok{\# 3  \# 3}
-\FunctionTok{head}\NormalTok{(temp)                                             }\CommentTok{\# 4  \# 4}
+\NormalTok{temp}\OtherTok{\textless{}{-}}                                                 \CommentTok{\# 1}
+\NormalTok{  indiana }\SpecialCharTok{\%\textgreater{}\%}                                          \CommentTok{\# 2}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(unemp\_rate\_calc, Labor\_force,  Employed))  }\CommentTok{\# 3}
+\FunctionTok{head}\NormalTok{(temp)                                             }\CommentTok{\# 4}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1294,10 +1294,10 @@ Now what if we wanted to keep just State\_fips, County\_fips, Year, and Unemp\_r
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{temp}\OtherTok{\textless{}{-}}                                                  \CommentTok{\# 1  \# 1}
-\NormalTok{  indiana }\SpecialCharTok{\%\textgreater{}\%}                                           \CommentTok{\# 2  \# 2}
-  \FunctionTok{select}\NormalTok{(}\FunctionTok{c}\NormalTok{(State\_fips, County\_fips, Year, Unemp\_rate))  }\CommentTok{\# 3  \# 3}
-\FunctionTok{head}\NormalTok{(temp)                                              }\CommentTok{\# 4  \# 4}
+\NormalTok{temp}\OtherTok{\textless{}{-}}                                                  \CommentTok{\# 1}
+\NormalTok{  indiana }\SpecialCharTok{\%\textgreater{}\%}                                           \CommentTok{\# 2}
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{c}\NormalTok{(State\_fips, County\_fips, Year, Unemp\_rate))  }\CommentTok{\# 3}
+\FunctionTok{head}\NormalTok{(temp)                                              }\CommentTok{\# 4}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1331,9 +1331,9 @@ Here is the command I use for it:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{PovertyEstimates }\OtherTok{\textless{}{-}}                                             \CommentTok{\# 1  \# 1}
-  \FunctionTok{read\_excel}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(folder\_raw\_data, }\StringTok{"/PovertyEstimates.xls"}\NormalTok{),  }\CommentTok{\# 2  \# 2}
-  \AttributeTok{skip =} \DecValTok{4}\NormalTok{)                                                     }\CommentTok{\# 3  \# 3}
+\NormalTok{PovertyEstimates }\OtherTok{\textless{}{-}}                                             \CommentTok{\# 1}
+  \FunctionTok{read\_excel}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(folder\_raw\_data, }\StringTok{"/PovertyEstimates.xls"}\NormalTok{),  }\CommentTok{\# 2}
+  \AttributeTok{skip =} \DecValTok{4}\NormalTok{)                                                     }\CommentTok{\# 3}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1371,13 +1371,13 @@ Here is the code I use for this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unem\_2019}\OtherTok{\textless{}{-}}\NormalTok{county\_data }\SpecialCharTok{\%\textgreater{}\%}                                                            \CommentTok{\# 1  \# 1}
-  \FunctionTok{filter}\NormalTok{(Year}\SpecialCharTok{==}\DecValTok{2019}\NormalTok{, State\_fips}\SpecialCharTok{!=}\DecValTok{72}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#restrict sample to only year 2019, drop PR  \# 2  \# 2}
-  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Year) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#drop the variable Year                                           \# 3  \# 3}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{FIPStxt=}\FunctionTok{paste0}\NormalTok{(State\_fips, County\_fips)) }\CommentTok{\#Create variable to merge on        \# 4  \# 4}
-                                                                                      \CommentTok{\# 5  \# 5}
-\NormalTok{pov\_2019 }\OtherTok{\textless{}{-}}\NormalTok{ PovertyEstimates }\SpecialCharTok{\%\textgreater{}\%}                                                      \CommentTok{\# 6  \# 6}
-  \FunctionTok{filter}\NormalTok{(}\FunctionTok{substr}\NormalTok{(FIPStxt, }\FunctionTok{str\_length}\NormalTok{(FIPStxt)}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\FunctionTok{str\_length}\NormalTok{(FIPStxt))}\SpecialCharTok{!=}\StringTok{"000"}\NormalTok{)          }\CommentTok{\# 7  \# 7}
+\NormalTok{unem\_2019}\OtherTok{\textless{}{-}}\NormalTok{county\_data }\SpecialCharTok{\%\textgreater{}\%}                                                            \CommentTok{\# 1}
+  \FunctionTok{filter}\NormalTok{(Year}\SpecialCharTok{==}\DecValTok{2019}\NormalTok{, State\_fips}\SpecialCharTok{!=}\DecValTok{72}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#restrict sample to only year 2019, drop PR  \# 2}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Year) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#drop the variable Year                                           \# 3}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{FIPStxt=}\FunctionTok{paste0}\NormalTok{(State\_fips, County\_fips)) }\CommentTok{\#Create variable to merge on        \# 4}
+                                                                                      \CommentTok{\# 5}
+\NormalTok{pov\_2019 }\OtherTok{\textless{}{-}}\NormalTok{ PovertyEstimates }\SpecialCharTok{\%\textgreater{}\%}                                                      \CommentTok{\# 6}
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{substr}\NormalTok{(FIPStxt, }\FunctionTok{str\_length}\NormalTok{(FIPStxt)}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\FunctionTok{str\_length}\NormalTok{(FIPStxt))}\SpecialCharTok{!=}\StringTok{"000"}\NormalTok{)          }\CommentTok{\# 7}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1387,8 +1387,8 @@ There are join commands for this in the dplyr package. The clearest join command
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{clean\_full}\OtherTok{\textless{}{-}}                         \CommentTok{\# 1  \# 1}
-\NormalTok{  unem\_2019 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{full\_join}\NormalTok{(pov\_2019)  }\CommentTok{\# 2  \# 2}
+\NormalTok{clean\_full}\OtherTok{\textless{}{-}}                         \CommentTok{\# 1}
+\NormalTok{  unem\_2019 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{full\_join}\NormalTok{(pov\_2019)  }\CommentTok{\# 2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1417,8 +1417,8 @@ For example, consider above when we first loaded in our poverty data. It had obs
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unclean\_left}\OtherTok{\textless{}{-}}                               \CommentTok{\# 1  \# 1}
-\NormalTok{  unem\_2019 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{left\_join}\NormalTok{(PovertyEstimates)  }\CommentTok{\# 2  \# 2}
+\NormalTok{unclean\_left}\OtherTok{\textless{}{-}}                               \CommentTok{\# 1}
+\NormalTok{  unem\_2019 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{left\_join}\NormalTok{(PovertyEstimates)  }\CommentTok{\# 2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1442,14 +1442,14 @@ In this case we are starting with our unemployment data, and then telling R to m
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unem\_2019\_pr}\OtherTok{\textless{}{-}}\NormalTok{county\_data }\SpecialCharTok{\%\textgreater{}\%}                      \CommentTok{\# 1  \# 1}
-  \FunctionTok{filter}\NormalTok{(Year}\SpecialCharTok{==}\DecValTok{2019}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}                           \CommentTok{\# 2  \# 2}
-  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Year) }\SpecialCharTok{\%\textgreater{}\%}                                \CommentTok{\# 3  \# 3}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{FIPStxt=}\FunctionTok{paste0}\NormalTok{(State\_fips, County\_fips))  }\CommentTok{\# 4  \# 4}
-\NormalTok{pr}\OtherTok{\textless{}{-}}                                               \CommentTok{\# 5  \# 5}
-\NormalTok{  unem\_2019\_pr }\SpecialCharTok{\%\textgreater{}\%}                                 \CommentTok{\# 6  \# 6}
-  \FunctionTok{left\_join}\NormalTok{(PovertyEstimates) }\SpecialCharTok{\%\textgreater{}\%}                  \CommentTok{\# 7  \# 7}
-  \FunctionTok{filter}\NormalTok{(State\_fips}\SpecialCharTok{==}\DecValTok{72}\NormalTok{)                           }\CommentTok{\# 8  \# 8}
+\NormalTok{unem\_2019\_pr}\OtherTok{\textless{}{-}}\NormalTok{county\_data }\SpecialCharTok{\%\textgreater{}\%}                      \CommentTok{\# 1}
+  \FunctionTok{filter}\NormalTok{(Year}\SpecialCharTok{==}\DecValTok{2019}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}                           \CommentTok{\# 2}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Year) }\SpecialCharTok{\%\textgreater{}\%}                                \CommentTok{\# 3}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{FIPStxt=}\FunctionTok{paste0}\NormalTok{(State\_fips, County\_fips))  }\CommentTok{\# 4}
+\NormalTok{pr}\OtherTok{\textless{}{-}}                                               \CommentTok{\# 5}
+\NormalTok{  unem\_2019\_pr }\SpecialCharTok{\%\textgreater{}\%}                                 \CommentTok{\# 6}
+  \FunctionTok{left\_join}\NormalTok{(PovertyEstimates) }\SpecialCharTok{\%\textgreater{}\%}                  \CommentTok{\# 7}
+  \FunctionTok{filter}\NormalTok{(State\_fips}\SpecialCharTok{==}\DecValTok{72}\NormalTok{)                           }\CommentTok{\# 8}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1498,7 +1498,7 @@ To do this we will use the ggsave command.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggsave}\NormalTok{(}\AttributeTok{file=}\FunctionTok{paste0}\NormalTok{(folder\_figures, }\StringTok{"/indiana\_unemp.png"}\NormalTok{))      }\CommentTok{\# 1  \# 1  \# 1}
+\FunctionTok{ggsave}\NormalTok{(}\AttributeTok{file=}\FunctionTok{paste0}\NormalTok{(folder\_figures, }\StringTok{"/indiana\_unemp.png"}\NormalTok{))      }\CommentTok{\# 1}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1506,8 +1506,8 @@ This will take the last graphic in memory and save it in the location we specify
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggsave}\NormalTok{(}\AttributeTok{file=}\FunctionTok{paste0}\NormalTok{(folder\_figures, }\StringTok{"/indiana\_unemp.png"}\NormalTok{),   }\CommentTok{\# 1  \# 1  \# 1}
-  \AttributeTok{height =} \DecValTok{5}\NormalTok{, }\AttributeTok{width =} \DecValTok{7}\NormalTok{)                                    }\CommentTok{\# 2  \# 2  \# 2}
+\FunctionTok{ggsave}\NormalTok{(}\AttributeTok{file=}\FunctionTok{paste0}\NormalTok{(folder\_figures, }\StringTok{"/indiana\_unemp.png"}\NormalTok{),   }\CommentTok{\# 1}
+  \AttributeTok{height =} \DecValTok{5}\NormalTok{, }\AttributeTok{width =} \DecValTok{7}\NormalTok{)                                    }\CommentTok{\# 2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1518,19 +1518,19 @@ Let's learn how to export our summary table we created in the dplyr section. Jus
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{indiana\_laborforce}\OtherTok{\textless{}{-}}                       \CommentTok{\# 1   \# 1   \# 1   \# 1}
-\NormalTok{  unemp\_data }\SpecialCharTok{\%\textgreater{}\%}                           \CommentTok{\# 2   \# 2   \# 2   \# 2}
-  \FunctionTok{filter}\NormalTok{(State\_fips}\SpecialCharTok{==}\StringTok{"18"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}             \CommentTok{\# 3   \# 3   \# 3   \# 3}
-  \FunctionTok{group\_by}\NormalTok{(Year) }\SpecialCharTok{\%\textgreater{}\%}                       \CommentTok{\# 4   \# 4   \# 4   \# 4}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Min=}\FunctionTok{min}\NormalTok{(Labor\_force),          }\CommentTok{\# 5   \# 5   \# 5   \# 5}
-    \AttributeTok{p10th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{)),   }\CommentTok{\# 6   \# 6   \# 6   \# 6}
-    \AttributeTok{p25th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{)),  }\CommentTok{\# 7   \# 7   \# 7   \# 7}
-    \AttributeTok{p50th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{)),   }\CommentTok{\# 8   \# 8   \# 8   \# 8}
-    \AttributeTok{p75th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{)),  }\CommentTok{\# 9   \# 9   \# 9   \# 9}
-    \AttributeTok{p90th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.9}\NormalTok{)),  }\CommentTok{\# 10  \# 10  \# 10  \# 10}
-    \AttributeTok{Max=}\FunctionTok{max}\NormalTok{(Labor\_force),                 }\CommentTok{\# 11  \# 11  \# 11  \# 11}
-    \AttributeTok{Average=}\FunctionTok{mean}\NormalTok{(Labor\_force),            }\CommentTok{\# 12  \# 12  \# 12  \# 12}
-    \AttributeTok{StDev=}\FunctionTok{sd}\NormalTok{(Labor\_force))                }\CommentTok{\# 13  \# 13  \# 13  \# 13}
+\NormalTok{indiana\_laborforce}\OtherTok{\textless{}{-}}                       \CommentTok{\# 1   \# 1}
+\NormalTok{  unemp\_data }\SpecialCharTok{\%\textgreater{}\%}                           \CommentTok{\# 2   \# 2}
+  \FunctionTok{filter}\NormalTok{(State\_fips}\SpecialCharTok{==}\StringTok{"18"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}             \CommentTok{\# 3   \# 3}
+  \FunctionTok{group\_by}\NormalTok{(Year) }\SpecialCharTok{\%\textgreater{}\%}                       \CommentTok{\# 4   \# 4}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Min=}\FunctionTok{min}\NormalTok{(Labor\_force),          }\CommentTok{\# 5   \# 5}
+    \AttributeTok{p10th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{)),   }\CommentTok{\# 6   \# 6}
+    \AttributeTok{p25th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{)),  }\CommentTok{\# 7   \# 7}
+    \AttributeTok{p50th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{)),   }\CommentTok{\# 8   \# 8}
+    \AttributeTok{p75th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{)),  }\CommentTok{\# 9   \# 9}
+    \AttributeTok{p90th=}\FunctionTok{quantile}\NormalTok{(Labor\_force, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.9}\NormalTok{)),  }\CommentTok{\# 10  \# 10}
+    \AttributeTok{Max=}\FunctionTok{max}\NormalTok{(Labor\_force),                 }\CommentTok{\# 11  \# 11}
+    \AttributeTok{Average=}\FunctionTok{mean}\NormalTok{(Labor\_force),            }\CommentTok{\# 12  \# 12}
+    \AttributeTok{StDev=}\FunctionTok{sd}\NormalTok{(Labor\_force))                }\CommentTok{\# 13  \# 13}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1538,13 +1538,13 @@ Now let's load in the package xtable. This package allows us to print data.frame
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \FunctionTok{xtable}\NormalTok{(indiana\_laborforce)  }\CommentTok{\# 1  \# 1  \# 1  \# 1}
+  \FunctionTok{xtable}\NormalTok{(indiana\_laborforce)  }\CommentTok{\# 1  \# 1}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## % latex table generated in R 4.1.0 by xtable 1.8-4 package
-## % Thu Jul 15 11:46:59 2021
+## % Mon Jul 19 20:08:46 2021
 ## \begin{table}[ht]
 ## \centering
 ## \begin{tabular}{rlrrrrrrrrr}
@@ -1590,9 +1590,9 @@ We could then copy and paste this output into latex. However, we can tell xtable
 
 \begin{Shaded}
 \begin{Highlighting}[]
-  \FunctionTok{print.xtable}\NormalTok{(                                                }\CommentTok{\# 1  \# 1  \# 1  \# 1}
-    \FunctionTok{xtable}\NormalTok{(indiana\_laborforce),                                }\CommentTok{\# 2  \# 2  \# 2  \# 2}
-    \AttributeTok{file=}\FunctionTok{paste0}\NormalTok{(workingdir, }\StringTok{"tables/indiana\_laborforce.tex"}\NormalTok{))  }\CommentTok{\# 3  \# 3  \# 3  \# 3}
+  \FunctionTok{print.xtable}\NormalTok{(                                                }\CommentTok{\# 1  \# 1}
+    \FunctionTok{xtable}\NormalTok{(indiana\_laborforce),                                }\CommentTok{\# 2  \# 2}
+    \AttributeTok{file=}\FunctionTok{paste0}\NormalTok{(workingdir, }\StringTok{"tables/indiana\_laborforce.tex"}\NormalTok{))  }\CommentTok{\# 3  \# 3}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1604,12 +1604,12 @@ Let's now customize this table more. First, let's get rid of row names as they a
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{print.xtable}\NormalTok{(                                                 }\CommentTok{\# 1  \# 1  \# 1  \# 1}
-  \FunctionTok{xtable}\NormalTok{(indiana\_laborforce),                                 }\CommentTok{\# 2  \# 2  \# 2  \# 2}
-  \AttributeTok{table.placement=}\StringTok{"H"}\NormalTok{,                                        }\CommentTok{\# 3  \# 3  \# 3  \# 3}
-  \AttributeTok{include.rownames=}\ConstantTok{FALSE}\NormalTok{,                                     }\CommentTok{\# 4  \# 4  \# 4  \# 4}
-  \AttributeTok{file=}\FunctionTok{paste0}\NormalTok{(workingdir, }\StringTok{"tables/indiana\_laborforce.tex"}\NormalTok{),   }\CommentTok{\# 5  \# 5  \# 5  \# 5}
-\NormalTok{  )                                                           }\CommentTok{\# 6  \# 6  \# 6  \# 6}
+\FunctionTok{print.xtable}\NormalTok{(                                                 }\CommentTok{\# 1  \# 1}
+  \FunctionTok{xtable}\NormalTok{(indiana\_laborforce),                                 }\CommentTok{\# 2  \# 2}
+  \AttributeTok{table.placement=}\StringTok{"H"}\NormalTok{,                                        }\CommentTok{\# 3  \# 3}
+  \AttributeTok{include.rownames=}\ConstantTok{FALSE}\NormalTok{,                                     }\CommentTok{\# 4  \# 4}
+  \AttributeTok{file=}\FunctionTok{paste0}\NormalTok{(workingdir, }\StringTok{"tables/indiana\_laborforce.tex"}\NormalTok{),   }\CommentTok{\# 5  \# 5}
+\NormalTok{  )                                                           }\CommentTok{\# 6  \# 6}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1617,15 +1617,15 @@ Let's add a bit more customization to this table.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{print.xtable}\NormalTok{(                                                     }\CommentTok{\# 1  \# 1  \# 1  \# 1}
-  \FunctionTok{xtable}\NormalTok{(                                                         }\CommentTok{\# 2  \# 2  \# 2  \# 2}
-\NormalTok{  indiana\_laborforce,                                             }\CommentTok{\# 3  \# 3  \# 3  \# 3}
-  \AttributeTok{digits=}\DecValTok{0}\NormalTok{,                                                       }\CommentTok{\# 4  \# 4  \# 4  \# 4}
-  \AttributeTok{label=} \StringTok{"tab:indiana\_laborforce"}\NormalTok{,                                }\CommentTok{\# 5  \# 5  \# 5  \# 5}
-  \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"|c|"}\NormalTok{,}\StringTok{"|c|"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c|"}\NormalTok{)),   }\CommentTok{\# 6  \# 6  \# 6  \# 6}
-  \AttributeTok{table.placement=}\StringTok{"H"}\NormalTok{,                                            }\CommentTok{\# 7  \# 7  \# 7  \# 7}
-  \AttributeTok{include.rownames=}\ConstantTok{FALSE}\NormalTok{,                                         }\CommentTok{\# 8  \# 8  \# 8  \# 8}
-  \AttributeTok{file=}\FunctionTok{paste0}\NormalTok{(folder\_tables, }\StringTok{"/indiana\_laborforce.tex"}\NormalTok{))          }\CommentTok{\# 9  \# 9  \# 9  \# 9}
+\FunctionTok{print.xtable}\NormalTok{(                                                     }\CommentTok{\# 1  \# 1}
+  \FunctionTok{xtable}\NormalTok{(                                                         }\CommentTok{\# 2  \# 2}
+\NormalTok{  indiana\_laborforce,                                             }\CommentTok{\# 3  \# 3}
+  \AttributeTok{digits=}\DecValTok{0}\NormalTok{,                                                       }\CommentTok{\# 4  \# 4}
+  \AttributeTok{label=} \StringTok{"tab:indiana\_laborforce"}\NormalTok{,                                }\CommentTok{\# 5  \# 5}
+  \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"|c|"}\NormalTok{,}\StringTok{"|c|"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"c|"}\NormalTok{)),   }\CommentTok{\# 6  \# 6}
+  \AttributeTok{table.placement=}\StringTok{"H"}\NormalTok{,                                            }\CommentTok{\# 7  \# 7}
+  \AttributeTok{include.rownames=}\ConstantTok{FALSE}\NormalTok{,                                         }\CommentTok{\# 8  \# 8}
+  \AttributeTok{file=}\FunctionTok{paste0}\NormalTok{(folder\_tables, }\StringTok{"/indiana\_laborforce.tex"}\NormalTok{))          }\CommentTok{\# 9  \# 9}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1640,6 +1640,51 @@ Let's add a bit more customization to this table.
 \end{itemize}
 
 There are many other packages that can assist in creating tex tables. We will later use stargazer for reporting regression results. I like using xtable due to it's ease to customize. Please leave me a note below if you have any favorite packages for creating tex tables.
+
+\hypertarget{GIS}{%
+\chapter{GIS Example}\label{GIS}}
+
+This chapter looks at some GIS work I did for a research project in progress. To investigate the question of whether a politician's margin of victory is related to pollution outcomes I assemble a dataset combining data from EPA pollution monitors, election results, congressional district boundaries, county level variables, weather data and matching them together by geography
+
+\hypertarget{mit-election-data}{%
+\section{MIT Election Data}\label{mit-election-data}}
+
+Data on U.S. House elections from 1976-2016 is obtained from MIT's Election Data and Science Lab. The data contains the name of candidates running in a US House election, the state and district they are running in, their party affiliation, if they were a write in candidate, how many votes they received, how many votes were cast in the election overall, and if the election was a special or regular election.
+
+From this data allows me to define incumbency variables grouping incumbents into the number of terms they served. Since this data spans back to only 1976, any incumbency measure is based on 1976 as a starting point. Thus if I wanted to group incumbents serving 3 terms, I would check which politicians served in three previous terms. For example, in 1980 I would see if a given victorious politician had also won elections in 1976 and 1978. If they had I would categorize them as a 3 term Representative. Should I want to group 5 term incumbents, I would not be able to to this in 1980 since I would need data going back to 1972. In some cases in my analysis I will have to drop some pollution observations at the beginning of my sample for this reason.
+
+I also calculate the margin of victory from this data defined as the difference in votes of the top two candidates divided by the sum of the top two. For example consider a race of three candidates, a Republican victor who has 45\% of the vote, a Democrat who wins 40\% of the vote, and an Independent who wins the remaining 15\% of the vote. Calculating the margin of victory would give us:
+
+\[
+\frac{0.45 - 0.40}{0.45 + 0.40} \approx 0.0588
+\]
+
+\begin{center}\includegraphics[width=0.8\linewidth]{img/victory_margin_prc_by_year} \end{center}
+
+Results of elections are matched to pollution monitors through mapping the monitors into congressional districts and then attributing monitors to districts which politicians represent. Historic district boundary shapefiles are obtained from the website of \href{https://cdmaps.polisci.ucla.edu/}{Lewis et al (2013)}. These maps allow me to overlay the pollution monitor's latitude and longitude coordinates, obtaining which district each monitor is located. Example of boundaries for the 110th congress (contiguous US) below.
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-76-1.pdf}
+
+\hypertarget{pollution-data}{%
+\section{Pollution Data}\label{pollution-data}}
+
+Ozone pollution data is obtained from the \href{https://aqs.epa.gov/aqsweb/airdata/download_files.html\#Daily}{EPA's website} on Air Quality at the daily frequency. Monitors collect observations through the course of the day on the parts per million of ground level ozone, they are then averaged by consecutive 8-hour readings. I utilize the maximum 8-hour reading for each day, restricting my sample to reliable monitors within the month defined as having more than 25 day readings within July. I then average the top 5 days within the month of July. Below I illustrate percentiles.
+
+\begin{center}\includegraphics[width=0.8\linewidth]{img/unbalancedpolllevelsovertime} \end{center}
+
+\hypertarget{bls-county-statistics}{%
+\section{BLS County Statistics}\label{bls-county-statistics}}
+
+Data on yearly population, personal income, and employment data at the county level were obtained from the Bureau of Economic Analysis. Utilizing this data in combination with county shapefiles from the Census Bureau allowed me to calculate a population density for each county.
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-79-1.pdf}
+
+\hypertarget{combining-data}{%
+\section{Combining Data}\label{combining-data}}
+
+Pollution monitors are a point in space while congressional districts and counties are an area. Hence we will map these points into both of these boundaries. In the below image I illustrate this: the colored areas represent counties, the dark boundaries represent congressional districts, and the points are pollution monitor locations.
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-81-1.pdf}
 
   \bibliography{book.bib,packages.bib}
 
